@@ -10,6 +10,7 @@
         - vim
         - htop
         - dconf-cli
+        - python3-psutil #needed IOT set the wallpaper position below
 
   - name: copy wallpaper file
     copy:
