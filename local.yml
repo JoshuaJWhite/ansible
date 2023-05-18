@@ -4,6 +4,8 @@
   become: true
 
   tasks:
-  - name: install vim
+  - name: install packages
     package:
-      name: vim
+      name:
+        - vim
+        - htop
