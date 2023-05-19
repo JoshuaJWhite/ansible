@@ -3,7 +3,7 @@ Ansible Playbook for System Configuration
 
 # Pre Config: Debian 12 rc2
 Add user generated with installer to sudo group:
-`` `
+```
 su  -
 us ermod -a -G sudo <user>
 getent group sudo
@@ -14,6 +14,7 @@ Add sources list to apt:
 ```
 sudo nano /etc/apt/sources.list
 ```
+
 Change the above file to match the below example:
 ```
 deb http://deb.debian.org/debian bookworm main non-free-firmware
