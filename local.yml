@@ -53,3 +53,14 @@
       user: ansible_user
       minute: "*/10"
       job: ansible-pull -o -U https://github.com/JoshuaJWhite/ansible.git
+
+  - name: add the flathub flatpak repository remote to the user installation
+    community.general.flatpak_remote:
+      name: flathub
+      state: present
+      flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
+  - name: install the steam by valve corp package from flathub
+    community.general.flatpak:
+      name: com.valvesoftware.Steam
+      state: present
