@@ -8,6 +8,7 @@
     package:
       name:
         - vim
+        - tree #command for directory tree listing
         - htop
         - dconf-cli
         - python3-psutil #needed IOT set the wallpaper position below
