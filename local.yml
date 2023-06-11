@@ -10,7 +10,7 @@
         - vim
         - tree #command for directory tree listing
         - htop
-        - dconf-cli
+        - dconf-cli #configuration system from GNOME desktop environment. required for wallpaper task below.
         - python3-psutil #needed IOT set the wallpaper position below
         - flatpak
         - gnome-software-plugin-flatpak
