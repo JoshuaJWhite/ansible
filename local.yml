@@ -21,7 +21,21 @@
       name:
         - firefox-esr
         - libreoffice
+        - libreoffice-common
+        - libreoffice-core
+        - libreoffice-gnome
+        - libreoffice-gtk3
+        - libreoffice-help-common
+        - libreoffice-help-en-us
+        - libreoffice-help-en-gb
+        - libreoffice-style-colibre
+        - libreoffice-style-elementary
       state: absent
+      purge: yes
+
+  - name: remove dependencies that are no longer required
+    package:    
+      autoremove: yes
 
   - name: copy wallpaper file
     copy:
