@@ -60,7 +60,10 @@
       state: present
       flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
 
-  - name: install the steam by valve corp package from flathub
+  - name: install multiple package from flathub
     community.general.flatpak:
-      name: com.valvesoftware.Steam
+      name:
+        - com.valvesoftware.Steam
+        - org.gimp.GIMP
+        - org.freecadweb.FreeCAD
       state: present
