@@ -20,6 +20,7 @@
     package:
       name:
         - firefox-esr
+        - libreoffice
       state: absent
 
   - name: copy wallpaper file
@@ -71,6 +72,7 @@
     community.general.flatpak:
       name:
         - org.mozilla.firefox
+        - org.libreoffice.LibreOffice
         - com.valvesoftware.Steam
         - org.gimp.GIMP
         - org.freecadweb.FreeCAD
