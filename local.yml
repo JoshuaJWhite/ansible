@@ -14,6 +14,13 @@
         - python3-psutil #needed IOT set the wallpaper position below
         - flatpak
         - gnome-software-plugin-flatpak
+      state: present
+
+  - name: remove packages
+    package:
+      name:
+        - firefox-esr
+      state: absent
 
   - name: copy wallpaper file
     copy:
@@ -63,6 +70,7 @@
   - name: install multiple package from flathub
     community.general.flatpak:
       name:
+        - org.mozilla.firefox
         - com.valvesoftware.Steam
         - org.gimp.GIMP
         - org.freecadweb.FreeCAD
