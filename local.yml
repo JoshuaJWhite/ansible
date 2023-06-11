@@ -11,6 +11,8 @@
         - htop
         - dconf-cli
         - python3-psutil #needed IOT set the wallpaper position below
+        - flatpak
+        - gnome-software-plugin-flatpak
 
   - name: copy wallpaper file
     copy:
