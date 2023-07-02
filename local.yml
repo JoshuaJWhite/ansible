@@ -96,4 +96,5 @@
         - com.valvesoftware.Steam
         - org.gimp.GIMP
         - org.freecadweb.FreeCAD
+        - io.github.jonmagon.kdiskmark
       state: present
