@@ -36,6 +36,7 @@
         - libreoffice-help-en-gb
         - libreoffice-style-colibre
         - libreoffice-style-elementary
+        - nano
       state: absent
       purge: yes
 
