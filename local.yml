@@ -44,6 +44,7 @@
     package:
       autoremove: yes
 
+# ---- ---- ---- Set Wallpaper ---- ---- ----
   - name: copy wallpaper file
     copy:
       src: files/wallpaper.png
@@ -63,6 +64,7 @@
       key: "/org/gnome/desktop/background/picture-options"
       value: "'zoom'"
 
+# ---- ---- ---- Add ansible cron job ---- ---- ----
   - name: add ansible user
     user:
       name: ansible_user
@@ -89,6 +91,7 @@
       state: present
       flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
 
+# ---- ---- ---- Flatpack ---- ---- ----
   - name: install multiple package from flathub
     community.general.flatpak:
       name:
@@ -99,3 +102,12 @@
         - org.freecadweb.FreeCAD
         - io.github.jonmagon.kdiskmark
       state: present
+
+# ---- ---- ---- Bashrc ---- ---- ----
+  - name: copy bashrc file
+    copy:
+      src: files/bashrc
+      dest: /home/jwhite/.bashrc
+      owner: jwhite
+      group: jwhite
+      mode: 0644
