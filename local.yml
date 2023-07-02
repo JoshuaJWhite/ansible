@@ -101,6 +101,7 @@
         - org.gimp.GIMP
         - org.freecadweb.FreeCAD
         - io.github.jonmagon.kdiskmark
+        - tv.plex.PlexDesktop
       state: present
 
 # ---- ---- ---- Bashrc ---- ---- ----
