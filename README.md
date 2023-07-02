@@ -1,11 +1,11 @@
 # ansible
 Ansible Playbook for System Configuration
 
-# Pre Config: Debian 12 rc2
+# Pre Config: Debian 12 Bookworm
 Add user generated with installer to sudo group:
 ```
 su  -
-us ermod -a -G sudo <user>
+usermod -a -G sudo <user>
 getent group sudo
 su - <user>
 ```
@@ -36,4 +36,9 @@ sudo apt dist-upgrade -y
 Install the following to facilitate auto-config:
 ```
 sudo apt install ansible git
+```
+
+Run ansible pull:
+```
+sudo ansible-pull -U https://github.com/JoshuaJWhite/ansible.git
 ```
