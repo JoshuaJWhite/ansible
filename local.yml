@@ -117,6 +117,7 @@
         - org.freecadweb.FreeCAD
         - io.github.jonmagon.kdiskmark
         - tv.plex.PlexDesktop
+        - com.moonlight_stream.Moonlight
       state: present
 
 # ---- ---- ---- Bashrc ---- ---- ----
