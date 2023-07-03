@@ -13,6 +13,11 @@
       group: root
       mode: 0644 #-rw-r--r--
 
+  - name: apt-get update, apt-get dist-upgrade
+    ansible.builtin.apt:
+      update_cache: true
+      upgrade: dist
+
   - name: install packages
     package:
       name:
