@@ -4,6 +4,15 @@
   become: true
 
   tasks:
+# ---- ---- ---- apt package manager tasks ---- ---- ----
+  - name: copy apt source list
+    copy:
+      src: files/sources.list
+      dest: /etc/apt/sources.list
+      owner: root
+      group: root
+      mode: 0644 #-rw-r--r--
+
   - name: install packages
     package:
       name:
@@ -112,7 +121,7 @@
       dest: /home/jwhite/.bashrc
       owner: jwhite
       group: jwhite
-      mode: 0644
+      mode: 0644 #-rw-r--r--
 
 # ---- ---- ---- Nvidia Hybrid Laptop ---- ---- ----
   - name: install nvidia driver
