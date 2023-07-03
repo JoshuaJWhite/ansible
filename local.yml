@@ -29,6 +29,7 @@
         - flatpak
         - gnome-software-plugin-flatpak
         - syncthing #decentralized file synchronization
+        - steam-devices #Device support for Steam-related hardware
       state: present
 
   - name: install CFD workstation packages
