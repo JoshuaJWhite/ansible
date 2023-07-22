@@ -139,6 +139,11 @@
         - com.moonlight_stream.Moonlight
       state: present
 
+- name: update all flatpak(s)
+  ansible.builtin.command: flatpak update --noninteractive
+  register: flatpak_update_output
+  changed_when: "'app/' in flatpak_update_output.stdout"
+
 # ---- ---- ---- Bashrc ---- ---- ----
   - name: copy bashrc file
     copy:
