@@ -54,6 +54,23 @@
         - libreoffice-style-colibre
         - libreoffice-style-elementary
         - nano
+        - gnome-2048 #gnome default game
+        - aisleriot #gnome default game
+        - gnome-chess #gnome default game
+        - five-or-more #gnome default game
+        - four-in-a-row #gnome default game
+        - gnome-nibbles #gnome default game
+        - hitori #gnome default game
+        - gnome-klotski #gnome default game
+        - lightsoff #gnome default game
+        - gnome-mahjongg #gnome default game
+        - gnome-mines #gnome default game
+        - quadrapassel #gnome default game
+        - iagno #gnome default game
+        - gnome-sudoku #gnome default game
+        - tali #gnome default game
+        - gnome-taquin #gnome default game
+        - gnome-tetravex #gnome default game
       state: absent
       purge: yes
 
