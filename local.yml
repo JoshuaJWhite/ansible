@@ -105,6 +105,12 @@
       key: "/org/gnome/desktop/wm/preferences/button-layout"
       value: "'appmenu:minimize,maximize,spacer,close'" #the default is "'appmenu:close'"
 
+  - name: set gnome color scheme
+    become_user: jwhite
+    dconf:
+      key: "/org/gnome/desktop/interface/color-scheme"
+      value: "'prefer-light'" #the default is "'default'"
+
 # ---- ---- ---- Add ansible cron job ---- ---- ----
   - name: add ansible user
     user:
