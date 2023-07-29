@@ -79,7 +79,7 @@
     package:
       autoremove: yes
 
-# ---- ---- ---- Set Wallpaper ---- ---- ----
+# ---- ---- ---- dconf-conf GNOME settings ---- ---- ----
   - name: copy wallpaper file
     copy:
       src: files/wallpaper.png
@@ -98,6 +98,12 @@
     dconf:
       key: "/org/gnome/desktop/background/picture-options"
       value: "'zoom'"
+
+  - name: set window buttons
+    become_user: jwhite
+    dconf:
+      key: "/org/gnome/desktop/wm/preferences/button-layout"
+      value: "'appmenu:minimize,maximize,spacer,close'" #the default is "'appmenu:close'"
 
 # ---- ---- ---- Add ansible cron job ---- ---- ----
   - name: add ansible user
