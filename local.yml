@@ -31,6 +31,7 @@
         - syncthing #decentralized file synchronization
         - steam-devices #Device support for Steam-related hardware
         - wireguard #wireguard vpn
+        - dconf-editor #change gnome settings
       state: present
 
   - name: install CFD workstation packages
