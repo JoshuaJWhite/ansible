@@ -74,6 +74,7 @@
         - tali #gnome default game
         - gnome-taquin #gnome default game
         - gnome-tetravex #gnome default game
+        - swell-foop #gnome default game
       state: absent
       purge: yes
 
