@@ -114,6 +114,12 @@
       key: "/org/gnome/desktop/interface/color-scheme"
       value: "'prefer-light'" #the default is "'default'"
 
+  - name: set gnome night light 
+    become_user: jwhite
+    dconf:
+      key: "/org/gnome/settings-daemon/plugins/color/night-light-enabled"
+      value: "'true'" #the default is "'false'"
+
 # ---- ---- ---- Add ansible cron job ---- ---- ----
   - name: add ansible user
     user:
