@@ -112,3 +112,4 @@ alias ll='ls -laFh'
 alias l='ls -CF'
 alias reboot="sudo systemctl reboot"
 alias poweroff="sudo systemctl poweroff"
+alias hibernate="sudo systemctl hibernate"
