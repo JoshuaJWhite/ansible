@@ -2,6 +2,8 @@
 - hosts: localhost
   connection: local
   become: true
+  vars_files:
+    - vault_variables.yml
 
   tasks:
 # ---- ---- ---- apt package manager tasks ---- ---- ----
@@ -35,6 +37,7 @@
         - pcmanfm #file manager
         - lf #range inspired file manager
         - figlet #for making text banners of ASCII characters
+        - nfs-common #NFS support files common to client and server
       state: present
 
   - name: install CFD workstation packages
@@ -202,3 +205,33 @@
     ansible.builtin.systemd:
       name: nvidia-persistenced.service
       enabled: true
+
+# ---- ---- ---- Network Manager ---- ---- ----
+  - name: add thinkpad TBT3 dock with static IP config
+    community.general.nmcli:
+      conn_name: thinkpad_tbt3_dock_eth
+      ifname: enx047bcb60e8a1
+      type: ethernet
+      ip4: "{{ ip_addresses.p53_dock }}/24"
+      route_metric4: 100
+      gw4: "{{ ip_addresses.gateway }}"
+      state: present
+
+# ---- ---- ---- Mount ---- ---- ----
+  - name: mount nas nfs share onedrive
+    ansible.posix.mount:
+      src: "{{ ip_addresses.nas_primary }}:/mnt/tank/onedrive"
+      path: /home/jwhite/shares/onedrive
+      opts: rw,sync,hard
+      state: mounted
+      fstype: nfs
+      boot: false
+
+  - name: mount nas nfs share scratch
+    ansible.posix.mount:
+      src: "{{ ip_addresses.nas_primary }}:/mnt/tank/scratch"
+      path: /home/jwhite/shares/scratch
+      opts: rw,sync,hard
+      state: mounted
+      fstype: nfs
+      boot: false
