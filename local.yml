@@ -34,6 +34,7 @@
         - dconf-editor #change gnome settings
         - pcmanfm #file manager
         - lf #range inspired file manager
+        - figlet #for making text banners of ASCII characters
       state: present
 
   - name: install CFD workstation packages
