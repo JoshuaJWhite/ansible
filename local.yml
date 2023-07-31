@@ -225,7 +225,7 @@
       opts: rw,sync,hard
       state: mounted
       fstype: nfs
-      boot: false
+      boot: true
 
   - name: mount nas nfs share scratch
     ansible.posix.mount:
@@ -234,4 +234,4 @@
       opts: rw,sync,hard
       state: mounted
       fstype: nfs
-      boot: false
+      boot: true
