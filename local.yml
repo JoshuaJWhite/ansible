@@ -39,6 +39,7 @@
         - figlet #for making text banners of ASCII characters
         - nfs-common #NFS support files common to client and server
         - texlive-full #LaTex metapackage which pulls in all the relevant texlive packages and add-on macro packages
+        - iperf3 #Internet Protocol bandwidth measuring tool
       state: present
 
   - name: install CFD workstation packages
