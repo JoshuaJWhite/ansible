@@ -40,6 +40,7 @@
         - nfs-common #NFS support files common to client and server
         - texlive-full #LaTex metapackage which pulls in all the relevant texlive packages and add-on macro packages
         - iperf3 #Internet Protocol bandwidth measuring tool
+        - vifm #flexible vi-like file manager using ncurses
       state: present
 
   - name: install CFD workstation packages
