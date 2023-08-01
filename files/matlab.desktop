@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=matlab
+Exec=/usr/local/bin/matlab
+Type=Application
+Icon=/usr/share/icon_matlab.png
+Terminal=true

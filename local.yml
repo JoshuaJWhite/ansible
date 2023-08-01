@@ -242,3 +242,20 @@
       state: mounted
       fstype: nfs
       boot: true
+
+# ---- ---- ---- matlab ---- ---- ----
+  - name: matlab.desktop for gnome application menu
+    copy:
+      src: files/matlab.desktop
+      dest: /usr/share/applications/matlab.desktop
+      owner: root
+      group: root
+      mode: 0644 #-rw-r--r--
+
+  - name: matlab.desktop icon
+    copy:
+      src: files/icon_matlab.png
+      dest: /usr/share/icon_matlab.png
+      owner: root
+      group: root
+      mode: 0644 #-rw-r--r--
