@@ -167,6 +167,9 @@
         - tv.plex.PlexDesktop #Plex - Plex client for desktop computers
         - com.moonlight_stream.Moonlight #Moonlight - Play games remotely from your NVIDIA GameStream-enabled PC
         - com.obsproject.Studio #OBS Studio - Live streaming and video recording
+        - com.github.Eloston.UngoogledChromium #ungoogled-chromium - A lightweight approach to removing Google web service dependency
+        - org.kde.okular #Okular - Document Viewer - pdfs
+        - com.github.jeromerobert.pdfarranger #PDF Arranger - PDF Merging, Rearranging, Splitting, Rotating and Cropping
       state: present
 
   - name: update all flatpak(s)
@@ -225,7 +228,7 @@
     ansible.posix.mount:
       src: "{{ ip_addresses.nas_primary }}:/mnt/tank/onedrive"
       path: /home/jwhite/shares/onedrive
-      opts: rw,sync,hard
+      opts: rw,async,hard
       state: mounted
       fstype: nfs
       boot: true
@@ -234,7 +237,7 @@
     ansible.posix.mount:
       src: "{{ ip_addresses.nas_primary }}:/mnt/tank/scratch"
       path: /home/jwhite/shares/scratch
-      opts: rw,sync,hard
+      opts: rw,async,hard
       state: mounted
       fstype: nfs
       boot: true
