@@ -38,6 +38,7 @@
         - lf #range inspired file manager
         - figlet #for making text banners of ASCII characters
         - nfs-common #NFS support files common to client and server
+        - texlive-full #LaTex metapackage which pulls in all the relevant texlive packages and add-on macro packages
       state: present
 
   - name: install CFD workstation packages
