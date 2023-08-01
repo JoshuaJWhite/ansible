@@ -158,12 +158,13 @@
       name:
         - org.mozilla.firefox
         - org.libreoffice.LibreOffice
-        - com.valvesoftware.Steam
-        - org.gimp.GIMP
-        - org.freecadweb.FreeCAD
-        - io.github.jonmagon.kdiskmark
-        - tv.plex.PlexDesktop
-        - com.moonlight_stream.Moonlight
+        - com.valvesoftware.Steam #Steam - Launcher for the Steam software distribution service
+        - org.gimp.GIMP #GIMP - Create images and edit photographs
+        - org.freecadweb.FreeCAD #FreeCAD - An open source parametric 3D CAD modeler
+        - io.github.jonmagon.kdiskmark #KDiskMark - Disk benchmark tool
+        - tv.plex.PlexDesktop #Plex - Plex client for desktop computers
+        - com.moonlight_stream.Moonlight #Moonlight - Play games remotely from your NVIDIA GameStream-enabled PC
+        - com.obsproject.Studio #OBS Studio - Live streaming and video recording
       state: present
 
   - name: update all flatpak(s)
