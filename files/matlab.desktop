@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=matlab
-Exec=/usr/local/bin/matlab
+Exec=/usr/share/matlab/matlab_startup.sh
 Type=Application
-Icon=/usr/share/icon_matlab.png
+Icon=/usr/share/matlab/icon_matlab.png
 Terminal=true

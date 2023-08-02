@@ -245,17 +245,33 @@
 
 # ---- ---- ---- matlab ---- ---- ----
   - name: matlab.desktop for gnome application menu
-    copy:
+    ansible.builtin.copy:
       src: files/matlab.desktop
       dest: /usr/share/applications/matlab.desktop
       owner: root
       group: root
       mode: 0644 #-rw-r--r--
 
+  - name: create directory for matlab files
+    ansible.builtin.file:
+      path: /usr/share/matlab/
+      state: directory
+      owner: root
+      group: root
+      mode: '0755' #drwxr-xr-x
+
+  - name: matlab startup script for hardware opengl on nvidia gpu
+    ansible.builtin.copy:
+      src: files/matlab_startup.sh
+      dest: /usr/share/matlab/matlab_startup.sh
+      owner: root
+      group: root
+      mode: 0755 #-rwxr-xr-x
+
   - name: matlab.desktop icon
-    copy:
+    ansible.builtin.copy:
       src: files/icon_matlab.png
-      dest: /usr/share/icon_matlab.png
+      dest: /usr/share/matlab/icon_matlab.png
       owner: root
       group: root
       mode: 0644 #-rw-r--r--
