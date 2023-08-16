@@ -42,6 +42,7 @@
         - iperf3 #Internet Protocol bandwidth measuring tool
         - vifm #flexible vi-like file manager using ncurses
         - ttf-mscorefonts-installer #Installer for Microsoft TrueType core fonts
+        - firmware-realtek #Thinkpad P53: solves warning with "sudo update-initramfs -u" -> "W: Possible missing firmware /lib/firmware/rtl_nic/rtl8156b-2.fw for module r8152"
       state: present
 
   - name: install CFD workstation packages
