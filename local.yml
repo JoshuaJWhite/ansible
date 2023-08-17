@@ -245,7 +245,11 @@
       fstype: nfs
       boot: true
 
-# ---- ---- ---- matlab ---- ---- ----
+# __  __    _  _____ _        _    ____
+#|  \/  |  / \|_   _| |      / \  | __ )
+#| |\/| | / _ \ | | | |     / _ \ |  _ \
+#| |  | |/ ___ \| | | |___ / ___ \| |_) |
+#|_|  |_/_/   \_\_| |_____/_/   \_\____/
   - name: matlab.desktop for gnome application menu
     ansible.builtin.copy:
       src: files/matlab.desktop
