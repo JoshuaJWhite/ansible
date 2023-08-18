@@ -1,0 +1,37 @@
+"       _                    
+"__   _(_)_ __ ___  _ __ ___ 
+"\ \ / / | '_ ` _ \| '__/ __|
+" \ V /| | | | | | | | | (__ 
+"(_)_/ |_|_| |_| |_|_|  \___|
+"Location: ~/.vimrc
+"------------------------------------------------
+
+"Set leader key (MUST BE FIRST ENTRY)
+let mapleader = " "
+
+"------------------------------------------------
+
+"Some Basics:
+	syntax enable
+	set encoding=utf-8
+	set number relativenumber
+
+"Disable automatic commenting on newline:
+	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+"Spell-check set to <leader>o, 'o' for 'orthography':
+	map <leader>o :setlocal spell! spelllang=en_us<CR>
+
+"Syntax on/off set to <leader>s, 's' for 'syntax':
+	map <leader>s
+			\ :if exists("g:syntax_on") <bar>
+			\	 syntax off <bar>
+			\ else <bar>
+			\	 syntax enable <bar>
+			\  endif <CR>
+
+"Automatically delete all training whitespace on save:
+	autocmd BufWritePre * %s/\s\+$//e
+
+"Run xrdb whenever Xdefaults or Xresources are updated:
+	autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb %

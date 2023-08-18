@@ -320,3 +320,16 @@
       owner: root
       group: root
       mode: 0644 #-rw-r--r--
+
+#       _                    
+#__   _(_)_ __ ___  _ __ ___ 
+#\ \ / / | '_ ` _ \| '__/ __|
+# \ V /| | | | | | | | | (__ 
+#(_)_/ |_|_| |_| |_|_|  \___|
+  - name: copy vimrc config file
+    ansible.builtin.copy:
+      src: files/vimrc
+      dest: /home/jwhite/.vimrc
+      owner: jwhite
+      group: jwhite
+      mode: 0600 #-rw-------
