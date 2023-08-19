@@ -54,6 +54,7 @@
     package:
       name:
         - paraview
+        - gnuplot
       state: present
 
   - name: remove packages
@@ -133,7 +134,7 @@
       key: "/org/gnome/desktop/interface/color-scheme"
       value: "'prefer-light'" #the default is "'default'"
 
-#  - name: set gnome night light 
+#  - name: set gnome night light
 #    become_user: jwhite
 #    dconf:
 #      key: "/org/gnome/settings-daemon/plugins/color/night-light-enabled"
@@ -246,7 +247,7 @@
       enabled: true
 
 # _   _      _                      _      __  __
-#| \ | | ___| |___      _____  _ __| | __ |  \/  | __ _ _ __   __ _  __ _  ___ _ __ 
+#| \ | | ___| |___      _____  _ __| | __ |  \/  | __ _ _ __   __ _  __ _  ___ _ __
 #|  \| |/ _ \ __\ \ /\ / / _ \| '__| |/ / | |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__|
 #| |\  |  __/ |_ \ V  V / (_) | |  |   <  | |  | | (_| | | | | (_| | (_| |  __/ |
 #|_| \_|\___|\__| \_/\_/ \___/|_|  |_|\_\ |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_|
@@ -261,7 +262,7 @@
       gw4: "{{ ip_addresses.gateway }}"
       state: present
 
-# _   _ _____ ____    __  __                   _ 
+# _   _ _____ ____    __  __                   _
 #| \ | |  ___/ ___|  |  \/  | ___  _   _ _ __ | |_ ___
 #|  \| | |_  \___ \  | |\/| |/ _ \| | | | '_ \| __/ __|
 #| |\  |  _|  ___) | | |  | | (_) | |_| | | | | |_\__ \
@@ -321,10 +322,10 @@
       group: root
       mode: 0644 #-rw-r--r--
 
-#       _                    
-#__   _(_)_ __ ___  _ __ ___ 
+#       _
+#__   _(_)_ __ ___  _ __ ___
 #\ \ / / | '_ ` _ \| '__/ __|
-# \ V /| | | | | | | | | (__ 
+# \ V /| | | | | | | | | (__
 #(_)_/ |_|_| |_| |_|_|  \___|
   - name: copy vimrc config file
     ansible.builtin.copy:
