@@ -142,6 +142,19 @@
 #      value: "true" #the default is "'false'"
 #      state: present
 
+#  - name: set gnome window not responding duration
+#    become_user: jwhite
+#    dconf:
+#      key: "/org/gnome/mutter/check-alive-timeout"
+#      value: "'300000'" # units are milliseconds the default is "'5000'" or 5 seconds
+
+#  - name: set gnome to place new windows in the center of the screen
+#    become_user: jwhite
+#    dconf:
+#      key: "/org/gnome/mutter/center-new-windows"
+#      value: "'true'" # default is "'false'"
+
+
 #                          _       _
 #  ___ _ __ ___  _ __     (_) ___ | |__  ___
 # / __| '__/ _ \| '_ \    | |/ _ \| '_ \/ __|
