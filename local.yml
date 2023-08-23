@@ -292,7 +292,7 @@
 
   - name: mount nas nfs share scratch
     ansible.posix.mount:
-      src: "{{ ip_addresses.nas_primary }}:/mnt/tank/scratch"
+      src: "{{ ip_addresses.nas_primary }}:/mnt/tank-scratch/scratch"
       path: /home/jwhite/shares/scratch
       opts: rw,async,hard
       state: mounted
