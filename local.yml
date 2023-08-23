@@ -127,7 +127,7 @@
     become_user: jwhite
     dconf:
       key: "/org/gnome/desktop/wm/preferences/button-layout"
-      value: "'appmenu:minimize,maximize,spacer,close'" #the default is "'appmenu:close'"
+      value: "'appmenu:minimize,maximize,close'" #the default is "'appmenu:close'"
 
   - name: set gnome color scheme
     become_user: jwhite
