@@ -290,6 +290,15 @@
       fstype: nfs
       boot: true
 
+  - name: mount nas nfs share media
+    ansible.posix.mount:
+      src: "{{ ip_addresses.nas_primary }}:/mnt/tank/media"
+      path: /home/jwhite/shares/media
+      opts: rw,async,hard
+      state: mounted
+      fstype: nfs
+      boot: true
+
   - name: mount nas nfs share scratch
     ansible.posix.mount:
       src: "{{ ip_addresses.nas_primary }}:/mnt/tank-scratch/scratch"
