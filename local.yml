@@ -56,7 +56,6 @@
       name:
         - paraview
         - gnuplot
-        - openfoam
       state: present
 
   - name: remove packages
