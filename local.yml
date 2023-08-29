@@ -49,6 +49,7 @@
         - ttf-mscorefonts-installer #Installer for Microsoft TrueType core fonts
         - firmware-realtek #Thinkpad P53: solves warning with "sudo update-initramfs -u" -> "W: Possible missing firmware /lib/firmware/rtl_nic/rtl8156b-2.fw for module r8152"
         - intel-microcode #updated system processor microcode for Intel i686 and Intel X86-64 processors.
+        - iotop #simple top-like I/O monitor
       state: present
 
   - name: install CFD workstation packages
