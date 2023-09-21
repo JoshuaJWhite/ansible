@@ -267,10 +267,20 @@
 #| |\  |  __/ |_ \ V  V / (_) | |  |   <  | |  | | (_| | | | | (_| | (_| |  __/ |
 #|_| \_|\___|\__| \_/\_/ \___/|_|  |_|\_\ |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_|
 #                                                                   |___/
-  - name: add thinkpad TBT3 dock with static IP config
+#  - name: add thinkpad TBT3 dock with static IP config
+#    community.general.nmcli:
+#      conn_name: thinkpad_tbt3_dock_eth
+#      ifname: enx047bcb60e8a1
+#      type: ethernet
+#      ip4: "{{ ip_addresses.p53_dock }}/24"
+#      route_metric4: 100
+#      gw4: "{{ ip_addresses.gateway }}"
+#      state: present
+
+  - name: add Intel X550-T1 TBT3 dock with static IP config
     community.general.nmcli:
-      conn_name: thinkpad_tbt3_dock_eth
-      ifname: enx047bcb60e8a1
+      conn_name: intelx550_tbt3_dock_eth
+      ifname: enp9s0
       type: ethernet
       ip4: "{{ ip_addresses.p53_dock }}/24"
       route_metric4: 100
