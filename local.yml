@@ -242,24 +242,24 @@
         - nvidia-driver
       state: present
 
-  - name: copy nvidia udev rule for hybrid operation
-    copy:
-      src: files/80-nvidia-pm.rules
-      dest: /etc/udev/rules.d/80-nvidia-pm.rules
-      owner: root
-      group: root
+ # - name: copy nvidia udev rule for hybrid operation
+ #   copy:
+ #     src: files/80-nvidia-pm.rules
+ #     dest: /etc/udev/rules.d/80-nvidia-pm.rules
+ #     owner: root
+ #     group: root
 
-  - name: copy nvidia module parameter for hybrid operation
-    copy:
-      src: files/nvidia-pm.conf
-      dest: /etc/modprobe.d/nvidia-pm.conf
-      owner: root
-      group: root
+ # - name: copy nvidia module parameter for hybrid operation
+ #   copy:
+ #     src: files/nvidia-pm.conf
+ #     dest: /etc/modprobe.d/nvidia-pm.conf
+ #     owner: root
+ #     group: root
 
-  - name: systemd nvidia persistence service
-    ansible.builtin.systemd:
-      name: nvidia-persistenced.service
-      enabled: true
+ # - name: systemd nvidia persistence service
+ #   ansible.builtin.systemd:
+ #     name: nvidia-persistenced.service
+ #     enabled: true
 
 # _   _      _                      _      __  __
 #| \ | | ___| |___      _____  _ __| | __ |  \/  | __ _ _ __   __ _  __ _  ___ _ __
