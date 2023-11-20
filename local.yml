@@ -313,7 +313,7 @@
     ansible.posix.mount:
       src: "{{ ip_addresses.nas_primary }}:/mnt/tank/onedrive"
       path: /home/jwhite/shares/onedrive
-      opts: defaults,rw,async,hard
+      opts: defaults,rw,async,hard,nolock #nolock required for libreoffice to work
       state: mounted
       fstype: nfs
       boot: true
