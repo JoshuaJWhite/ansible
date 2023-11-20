@@ -278,14 +278,30 @@
 #      gw4: "{{ ip_addresses.gateway }}"
 #      state: present
 
-  - name: add Intel X550-T1 TBT3 dock with static IP config
+  - name: add Intel X550-T1 TBT3 dock with static IP config RIGHT-PORT
     community.general.nmcli:
       conn_name: intelx550_tbt3_dock_eth
       ifname: enp9s0
       type: ethernet
       ip4: "{{ ip_addresses.p53_dock }}/24"
       route_metric4: 100
+      mtu: 1500
       gw4: "{{ ip_addresses.gateway }}"
+      dns4:
+      - "{{ ip_addresses.gateway }}"
+      state: present
+
+  - name: add Intel X550-T1 TBT3 dock with static IP config LEFT-PORT
+    community.general.nmcli:
+      conn_name: intelx550_tbt3_dock_eth
+      ifname: enp47s0
+      type: ethernet
+      ip4: "{{ ip_addresses.p53_dock }}/24"
+      route_metric4: 100
+      mtu: 1500
+      gw4: "{{ ip_addresses.gateway }}"
+      dns4:
+      - "{{ ip_addresses.gateway }}"
       state: present
 
 # _   _ _____ ____    __  __                   _
@@ -297,7 +313,7 @@
     ansible.posix.mount:
       src: "{{ ip_addresses.nas_primary }}:/mnt/tank/onedrive"
       path: /home/jwhite/shares/onedrive
-      opts: rw,async,hard
+      opts: defaults,rw,async,hard
       state: mounted
       fstype: nfs
       boot: true
@@ -306,7 +322,7 @@
     ansible.posix.mount:
       src: "{{ ip_addresses.nas_primary }}:/mnt/tank/media"
       path: /home/jwhite/shares/media
-      opts: rw,async,hard
+      opts: defaults,rw,async,hard
       state: mounted
       fstype: nfs
       boot: true
@@ -315,7 +331,7 @@
     ansible.posix.mount:
       src: "{{ ip_addresses.nas_primary }}:/mnt/tank-scratch/scratch"
       path: /home/jwhite/shares/scratch
-      opts: rw,async,hard
+      opts: defaults,rw,async,hard
       state: mounted
       fstype: nfs
       boot: true
