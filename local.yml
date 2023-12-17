@@ -189,7 +189,7 @@
       name: ansible auto-provision
       user: ansible_user
       minute: "*/10"
-      job: ansible-pull --vault-password-file /home/jwhite/.vault_key_ansible -o -U https://github.com/JoshuaJWhite/ansible.git
+      job: ansible-pull --only-if-changed --vault-password-file /home/jwhite/.vault_key_ansible -U https://github.com/JoshuaJWhite/ansible.git
       state: present
 
   - name: add the flathub flatpak repository remote to the user installation
