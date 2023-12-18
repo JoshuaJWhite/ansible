@@ -392,3 +392,40 @@
       owner: jwhite
       group: jwhite
       mode: 0600 #-rw-------
+
+#                   _   _                 _          _                                       _
+# _   _ _ __   __ _| |_| |_ ___ _ __   __| | ___  __| |      _   _ _ __   __ _ _ __ __ _  __| | ___  ___
+#| | | | '_ \ / _` | __| __/ _ \ '_ \ / _` |/ _ \/ _` |_____| | | | '_ \ / _` | '__/ _` |/ _` |/ _ \/ __|
+#| |_| | | | | (_| | |_| ||  __/ | | | (_| |  __/ (_| |_____| |_| | |_) | (_| | | | (_| | (_| |  __/\__ \
+# \__,_|_| |_|\__,_|\__|\__\___|_| |_|\__,_|\___|\__,_|      \__,_| .__/ \__, |_|  \__,_|\__,_|\___||___/
+#                                                                 |_|    |___/
+  - name: install unattended-upgrades
+    package:
+      name:
+        - unattended-upgrades #automatic installation of security upgrades
+        - apt-config-auto-update #APT configuration for automatic cache updates
+        - powermgmt-base #common utils for power management
+      state: present
+
+  - name: copy unattended-upgrades config file
+    copy:
+      src: files/config.unattended-upgrades
+      dest: /etc/apt/apt.conf.d/50unattended-upgrades
+      owner: root
+      group: root
+      mode: 0644 #-rw-r--r--
+
+  - name: systemctl unattended-upgrades
+    ansible.builtin.systemd_service:
+      name: unattended-upgrades
+      state: started
+      enabled: true
+
+#  - name: add unattended-upgrades cron job #will run at midnight daily
+#    ansible.builtin.cron:
+#      name: ansible unattended-upgrades
+#      user: ansible_user
+#      minute: "0"
+#      hour: "0"
+#      job: /usr/bin/unattended-upgrade -d
+
