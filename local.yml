@@ -182,7 +182,7 @@
       mode: 0440
 
   - name: add ansible-pull cron job
-    cron:
+    ansible.builtin.cron:
       name: ansible auto-provision
       user: ansible_user
       minute: "*/10"
