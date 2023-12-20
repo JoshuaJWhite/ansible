@@ -429,3 +429,17 @@
 #      hour: "0"
 #      job: /usr/bin/unattended-upgrade -d
 
+# ____                      _                 _          _         _           ____ _
+#|  _ \  _____      ___ __ | | ___   __ _  __| |___     / \  _   _| |_ ___    / ___| | ___  __ _ _ __
+#| | | |/ _ \ \ /\ / / '_ \| |/ _ \ / _` |/ _` / __|   / _ \| | | | __/ _ \  | |   | |/ _ \/ _` | '_ \
+#| |_| | (_) \ V  V /| | | | | (_) | (_| | (_| \__ \  / ___ \ |_| | || (_) | | |___| |  __/ (_| | | | |
+#|____/ \___/ \_/\_/ |_| |_|_|\___/ \__,_|\__,_|___/ /_/   \_\__,_|\__\___/   \____|_|\___|\__,_|_| |_|
+
+  - name: add cron job that deletes all files in the ~/Downloads directory #will run at midnight daily
+    ansible.builtin.cron:
+      name: ansible downloads cleaner
+      user: ansible_user
+      minute: "0"
+      hour: "0"
+      job: "rm -r /home/jwhite/Downloads/*"
+      state: present
