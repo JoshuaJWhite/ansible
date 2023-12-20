@@ -187,7 +187,7 @@
       user: ansible_user
       minute: "*/10"
 #      job: "sudo /usr/bin/ansible-pull --only-if-changed --vault-password-file /home/jwhite/.vault_key_ansible -U https://github.com/JoshuaJWhite/ansible.git > /var/log/ansible-auto-provision/ansible-pull.log 2>&1"
-      job: "sudo /usr/bin/ansible-pull --vault-password-file /home/jwhite/.vault_key_ansible -U https://github.com/JoshuaJWhite/ansible.git > /var/log/ansible-auto-provision/ansible-pull.log 2>&1"
+      job: "/usr/bin/ansible-pull --vault-password-file /home/jwhite/.vault_key_ansible -U https://github.com/JoshuaJWhite/ansible.git 2>&1 | tee /var/log/ansible-auto-provision/ansible-pull.log"
       state: present
 
   - name: make log directory for ansible auto-provision cron job
@@ -325,30 +325,30 @@
 #|  \| | |_  \___ \  | |\/| |/ _ \| | | | '_ \| __/ __|
 #| |\  |  _|  ___) | | |  | | (_) | |_| | | | | |_\__ \
 #|_| \_|_|   |____/  |_|  |_|\___/ \__,_|_| |_|\__|___/
-  - name: mount nas nfs share onedrive
+  - name: fstab nas nfs share onedrive
     ansible.posix.mount:
       src: "{{ ip_addresses.nas_primary }}:/mnt/tank/onedrive"
       path: /home/jwhite/shares/onedrive
       opts: defaults,rw,async,hard,nolock #nolock required for libreoffice to work
-      state: mounted
+      state: present #only specifies that the device is to be configured in fstab and does not trigger or require a mount
       fstype: nfs
       boot: true
 
-  - name: mount nas nfs share media
+  - name: fstab nas nfs share media
     ansible.posix.mount:
       src: "{{ ip_addresses.nas_primary }}:/mnt/tank/media"
       path: /home/jwhite/shares/media
       opts: defaults,rw,async,hard
-      state: mounted
+      state: present #only specifies that the device is to be configured in fstab and does not trigger or require a mount
       fstype: nfs
       boot: true
 
-  - name: mount nas nfs share scratch
+  - name: fstab nas nfs share scratch
     ansible.posix.mount:
       src: "{{ ip_addresses.nas_primary }}:/mnt/tank-scratch/scratch"
       path: /home/jwhite/shares/scratch
       opts: defaults,rw,async,hard
-      state: mounted
+      state: present #only specifies that the device is to be configured in fstab and does not trigger or require a mount
       fstype: nfs
       boot: true
 
