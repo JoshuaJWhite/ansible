@@ -179,7 +179,7 @@
       dest: /etc/sudoers.d/ansible_user
       owner: root
       group: root
-      mode: 0440
+      mode: 0440 #-r--r-----
 
   - name: add ansible-pull cron job
     ansible.builtin.cron:
