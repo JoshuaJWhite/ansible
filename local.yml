@@ -187,7 +187,7 @@
       user: ansible_user
       minute: "*/10"
 #      job: "sudo /usr/bin/ansible-pull --only-if-changed --vault-password-file /home/jwhite/.vault_key_ansible -U https://github.com/JoshuaJWhite/ansible.git > /var/log/ansible-auto-provision/ansible-pull.log 2>&1"
-      job: "/usr/bin/ansible-pull --vault-password-file /home/jwhite/.vault_key_ansible -U https://github.com/JoshuaJWhite/ansible.git 2>&1 | tee /var/log/ansible-auto-provision/ansible-pull.log"
+      job: "sudo /usr/bin/ansible-pull --vault-password-file /home/jwhite/.vault_key_ansible -U https://github.com/JoshuaJWhite/ansible.git 2>&1 | sudo tee /var/log/ansible-auto-provision/ansible-pull.log"
       state: present
 
   - name: make log directory for ansible auto-provision cron job
