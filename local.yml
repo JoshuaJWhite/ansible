@@ -186,14 +186,17 @@
       name: ansible auto-provision
       user: ansible_user
       minute: "*/10"
-      job: "/usr/bin/ansible-pull --only-if-changed --vault-password-file /home/jwhite/.vault_key_ansible -U https://github.com/JoshuaJWhite/ansible.git > /var/log/ansible-auto-provision/ansible-pull.log"
+#      job: "sudo /usr/bin/ansible-pull --only-if-changed --vault-password-file /home/jwhite/.vault_key_ansible -U https://github.com/JoshuaJWhite/ansible.git > /var/log/ansible-auto-provision/ansible-pull.log 2>&1"
+      job: "sudo /usr/bin/ansible-pull --vault-password-file /home/jwhite/.vault_key_ansible -U https://github.com/JoshuaJWhite/ansible.git > /var/log/ansible-auto-provision/ansible-pull.log 2>&1"
       state: present
 
   - name: make log directory for ansible auto-provision cron job
     ansible.builtin.file:
       path: /var/log/ansible-auto-provision
       state: directory
-      mode: 660 #-rw-rw----
+      owner: root
+      group: root
+      mode: 0660 #-rw-rw----
 
   - name: add the flathub flatpak repository remote to the user installation
     community.general.flatpak_remote:
