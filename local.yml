@@ -449,5 +449,5 @@
       user: ansible_user
       minute: "0"
       hour: "0"
-      job: "rm -r /home/jwhite/Downloads/*"
+      job: "sudo rm -r /home/jwhite/Downloads/*"
       state: present
