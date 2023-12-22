@@ -328,7 +328,7 @@
     ansible.posix.mount:
       src: "{{ ip_addresses.nas_primary }}:/mnt/tank/onedrive"
       path: /home/jwhite/shares/onedrive
-      opts: defaults,rw,async,hard,nolock #nolock required for libreoffice to work
+      opts: defaults,rw,async,auto,nofail,_netdev,hard,nolock #nolock required for libreoffice to work
       state: present #only specifies that the device is to be configured in fstab and does not trigger or require a mount
       fstype: nfs
       boot: true
@@ -337,7 +337,7 @@
     ansible.posix.mount:
       src: "{{ ip_addresses.nas_primary }}:/mnt/tank/media"
       path: /home/jwhite/shares/media
-      opts: defaults,rw,async,hard
+      opts: defaults,rw,async,auto,nofail,_netdev,hard
       state: present #only specifies that the device is to be configured in fstab and does not trigger or require a mount
       fstype: nfs
       boot: true
@@ -346,7 +346,7 @@
     ansible.posix.mount:
       src: "{{ ip_addresses.nas_primary }}:/mnt/tank-scratch/scratch"
       path: /home/jwhite/shares/scratch
-      opts: defaults,rw,async,hard
+      opts: defaults,rw,async,auto,nofail,_netdev,hard
       state: present #only specifies that the device is to be configured in fstab and does not trigger or require a mount
       fstype: nfs
       boot: true
