@@ -33,7 +33,6 @@
         - htop
         - dconf-cli #configuration system from GNOME desktop environment. required for wallpaper task below.
         - python3-psutil #needed IOT set the wallpaper position below
-        - flatpak
         - gnome-software-plugin-flatpak
         - syncthing #decentralized file synchronization
         - steam-devices #Device support for Steam-related hardware
@@ -197,18 +196,24 @@
       group: root
       mode: 0660 #-rw-rw----
 
-  - name: add the flathub flatpak repository remote to the user installation
-    community.general.flatpak_remote:
-      name: flathub
-      state: present
-      flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
-
 # _____ _       _               _
 #|  ___| | __ _| |_ _ __   __ _| | __
 #| |_  | |/ _` | __| '_ \ / _` | |/ /
 #|  _| | | (_| | |_| |_) | (_| |   <
 #|_|   |_|\__,_|\__| .__/ \__,_|_|\_\
 #                  |_|
+  - name: install flatpak
+    package:
+      name:
+        - flatpak
+      state: present
+
+  - name: add the flathub flatpak repository remote to the user installation
+    community.general.flatpak_remote:
+      name: flathub
+      state: present
+      flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
   - name: install multiple package from flathub
     community.general.flatpak:
       name:
