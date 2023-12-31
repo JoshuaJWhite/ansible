@@ -1,0 +1,466 @@
+---
+- hosts: localhost
+  connection: local
+  become: true
+  vars_files:
+    - vault_variables.yml
+
+  tasks:
+# ____            _                      __  __                                                   _
+#|  _ \ __ _  ___| | ____ _  __ _  ___  |  \/  | __ _ _ __   __ _  __ _  ___ _ __ _    __ _ _ __ | |_
+#| |_) / _` |/ __| |/ / _` |/ _` |/ _ \ | |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__(_)  / _` | '_ \| __|
+#|  __/ (_| | (__|   < (_| | (_| |  __/ | |  | | (_| | | | | (_| | (_| |  __/ |   _  | (_| | |_) | |_
+#|_|   \__,_|\___|_|\_\__,_|\__, |\___| |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_|  (_)  \__,_| .__/ \__|
+#                           |___/                                 |___/                    |_|
+  - name: copy apt source list
+    copy:
+      src: files/sources.list
+      dest: /etc/apt/sources.list
+      owner: root
+      group: root
+      mode: 0644 #-rw-r--r--
+
+  - name: apt-get update, apt-get dist-upgrade
+    ansible.builtin.apt:
+      update_cache: true
+      upgrade: dist
+
+  - name: install packages
+    package:
+      name:
+        - vim
+        - tree #command for directory tree listing
+        - htop
+        - dconf-cli #configuration system from GNOME desktop environment. required for wallpaper task below.
+        - python3-psutil #needed IOT set the wallpaper position below
+        - gnome-software-plugin-flatpak
+        - syncthing #decentralized file synchronization
+        - steam-devices #Device support for Steam-related hardware
+        - wireguard #wireguard vpn
+        - dconf-editor #change gnome settings
+        - pcmanfm #file manager
+        - lf #range inspired file manager
+        - figlet #for making text banners of ASCII characters
+        - nfs-common #NFS support files common to client and server
+        - texlive-full #LaTex metapackage which pulls in all the relevant texlive packages and add-on macro packages
+        - iperf3 #Internet Protocol bandwidth measuring tool
+        - vifm #flexible vi-like file manager using ncurses
+        - ttf-mscorefonts-installer #Installer for Microsoft TrueType core fonts
+        - firmware-realtek #Thinkpad P53: solves warning with "sudo update-initramfs -u" -> "W: Possible missing firmware /lib/firmware/rtl_nic/rtl8156b-2.fw for module r8152"
+        - intel-microcode #updated system processor microcode for Intel i686 and Intel X86-64 processors.
+        - iotop #simple top-like I/O monitor
+        - sc #terminal spreadsheet salculator
+        - curl
+        - ffmpeg
+        - atomicparsley
+        - python3-m3u8
+        - python3-mutagen
+        - vlc
+        - neofetch #Shows Linux System Information with Distribution Logo
+      state: present
+
+  - name: install CFD workstation packages
+    package:
+      name:
+        - paraview
+        - gnuplot
+      state: present
+
+  - name: remove packages
+    package:
+      name:
+        - firefox-esr
+        - libreoffice
+        - libreoffice-common
+        - libreoffice-core
+        - libreoffice-gnome
+        - libreoffice-gtk3
+        - libreoffice-help-common
+        - libreoffice-help-en-us
+        - libreoffice-help-en-gb
+        - libreoffice-style-colibre
+        - libreoffice-style-elementary
+        - nano
+        - gnome-2048 #gnome default game
+        - aisleriot #gnome default game
+        - gnome-chess #gnome default game
+        - five-or-more #gnome default game
+        - four-in-a-row #gnome default game
+        - gnome-nibbles #gnome default game
+        - hitori #gnome default game
+        - gnome-klotski #gnome default game
+        - lightsoff #gnome default game
+        - gnome-mahjongg #gnome default game
+        - gnome-mines #gnome default game
+        - quadrapassel #gnome default game
+        - iagno #gnome default game
+        - gnome-sudoku #gnome default game
+        - tali #gnome default game
+        - gnome-taquin #gnome default game
+        - gnome-tetravex #gnome default game
+        - swell-foop #gnome default game
+      state: absent
+      purge: yes
+
+  - name: remove dependencies that are no longer required
+    package:
+      autoremove: yes
+
+#  ____ _   _  ___  __  __ _____
+# / ___| \ | |/ _ \|  \/  | ____|
+#| |  _|  \| | | | | |\/| |  _|
+#| |_| | |\  | |_| | |  | | |___
+# \____|_| \_|\___/|_|  |_|_____|
+# ---- ---- ---- dconf-conf GNOME settings ---- ---- ----
+  - name: copy wallpaper file
+    copy:
+      src: files/wallpaper.png
+      dest: /usr/share/backgrounds/ansible-wallpaper.png
+      owner: root
+      group: root
+
+  - name: set wallpaper
+    become_user: jwhite
+    dconf:
+      key: "/org/gnome/desktop/background/picture-uri"
+      value: "'file:///usr/share/backgrounds/ansible-wallpaper.png'"
+
+  - name: set wallpaper position
+    become_user: jwhite
+    dconf:
+      key: "/org/gnome/desktop/background/picture-options"
+      value: "'zoom'"
+
+  - name: set window buttons
+    become_user: jwhite
+    dconf:
+      key: "/org/gnome/desktop/wm/preferences/button-layout"
+      value: "'appmenu:minimize,maximize,close'" #the default is "'appmenu:close'"
+
+  - name: set gnome color scheme
+    become_user: jwhite
+    dconf:
+      key: "/org/gnome/desktop/interface/color-scheme"
+      value: "'prefer-light'" #the default is "'default'"
+
+#  - name: set gnome night light
+#    become_user: jwhite
+#    dconf:
+#      key: "/org/gnome/settings-daemon/plugins/color/night-light-enabled"
+#      value: "true" #the default is "'false'"
+#      state: present
+
+#  - name: set gnome window not responding duration
+#    become_user: jwhite
+#    dconf:
+#      key: "/org/gnome/mutter/check-alive-timeout"
+#      value: "'300000'" # units are milliseconds the default is "'5000'" or 5 seconds
+
+#  - name: set gnome to place new windows in the center of the screen
+#    become_user: jwhite
+#    dconf:
+#      key: "/org/gnome/mutter/center-new-windows"
+#      value: "'true'" # default is "'false'"
+
+#    _              _ _     _           _         _          ____        _ _
+#   / \   _ __  ___(_) |__ | | ___     / \  _   _| |_ ___   |  _ \ _   _| | |
+#  / _ \ | '_ \/ __| | '_ \| |/ _ \   / _ \| | | | __/ _ \  | |_) | | | | | |
+# / ___ \| | | \__ \ | |_) | |  __/  / ___ \ |_| | || (_) | |  __/| |_| | | |
+#/_/   \_\_| |_|___/_|_.__/|_|\___| /_/   \_\__,_|\__\___/  |_|    \__,_|_|_|
+  - name: add ansible user
+    user:
+      name: ansible_user
+      system: yes
+
+  - name: set up sudo for ansible user
+    copy:
+      src: files/sudoer_ansible_user
+      dest: /etc/sudoers.d/ansible_user
+      owner: root
+      group: root
+      mode: 0440 #-r--r-----
+
+  - name: add ansible-pull cron job
+    ansible.builtin.cron:
+      name: ansible auto-provision
+      user: ansible_user
+      minute: "*/10"
+      job: "sudo /usr/bin/ansible-pull --only-if-changed --vault-password-file /home/jwhite/.vault_key_ansible -U https://github.com/JoshuaJWhite/ansible.git 2>&1 | sudo tee /var/log/ansible-auto-provision/ansible-pull.log"
+      state: present
+
+  - name: make log directory for ansible auto-provision cron job
+    ansible.builtin.file:
+      path: /var/log/ansible-auto-provision
+      state: directory
+      owner: root
+      group: root
+      mode: 0660 #-rw-rw----
+
+# _____ _       _               _
+#|  ___| | __ _| |_ _ __   __ _| | __
+#| |_  | |/ _` | __| '_ \ / _` | |/ /
+#|  _| | | (_| | |_| |_) | (_| |   <
+#|_|   |_|\__,_|\__| .__/ \__,_|_|\_\
+#                  |_|
+  - name: install flatpak
+    package:
+      name:
+        - flatpak
+      state: present
+
+  - name: add the flathub flatpak repository remote to the user installation
+    community.general.flatpak_remote:
+      name: flathub
+      state: present
+      flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
+  - name: install multiple package from flathub
+    community.general.flatpak:
+      name:
+        - org.mozilla.firefox
+        - org.libreoffice.LibreOffice
+        - com.valvesoftware.Steam #Steam - Launcher for the Steam software distribution service
+        - org.gimp.GIMP #GIMP - Create images and edit photographs
+        - org.freecadweb.FreeCAD #FreeCAD - An open source parametric 3D CAD modeler
+        - io.github.jonmagon.kdiskmark #KDiskMark - Disk benchmark tool
+        - tv.plex.PlexDesktop #Plex - Plex client for desktop computers
+        - com.moonlight_stream.Moonlight #Moonlight - Play games remotely from your NVIDIA GameStream-enabled PC
+        - com.obsproject.Studio #OBS Studio - Live streaming and video recording
+        - com.github.Eloston.UngoogledChromium #ungoogled-chromium - A lightweight approach to removing Google web service dependency
+        - org.kde.okular #Okular - Document Viewer - pdfs
+        - com.github.jeromerobert.pdfarranger #PDF Arranger - PDF Merging, Rearranging, Splitting, Rotating and Cropping
+      state: present
+
+  - name: update all flatpak(s)
+    ansible.builtin.command: flatpak update --noninteractive
+    register: flatpak_update_output
+    changed_when: "'app/' in flatpak_update_output.stdout"
+
+#   _               _
+#  | |__   __ _ ___| |__  _ __ ___
+#  | '_ \ / _` / __| '_ \| '__/ __|
+# _| |_) | (_| \__ \ | | | | | (__
+#(_)_.__/ \__,_|___/_| |_|_|  \___|
+  - name: copy bashrc file
+    copy:
+      src: files/bashrc
+      dest: /home/jwhite/.bashrc
+      owner: jwhite
+      group: jwhite
+      mode: 0644 #-rw-r--r--
+
+# _   _       _     _ _         _   _       _          _     _   _                _
+#| \ | |_   _(_) __| (_) __ _  | | | |_   _| |__  _ __(_) __| | | |    __ _ _ __ | |_ ___  _ __
+#|  \| \ \ / / |/ _` | |/ _` | | |_| | | | | '_ \| '__| |/ _` | | |   / _` | '_ \| __/ _ \| '_ \
+#| |\  |\ V /| | (_| | | (_| | |  _  | |_| | |_) | |  | | (_| | | |__| (_| | |_) | || (_) | |_) |
+#|_| \_| \_/ |_|\__,_|_|\__,_| |_| |_|\__, |_.__/|_|  |_|\__,_| |_____\__,_| .__/ \__\___/| .__/
+#                                     |___/                                |_|            |_|
+  - name: install nvidia driver
+    package:
+      name:
+        - nvidia-driver
+      state: present
+
+ # - name: copy nvidia udev rule for hybrid operation
+ #   copy:
+ #     src: files/80-nvidia-pm.rules
+ #     dest: /etc/udev/rules.d/80-nvidia-pm.rules
+ #     owner: root
+ #     group: root
+
+ # - name: copy nvidia module parameter for hybrid operation
+ #   copy:
+ #     src: files/nvidia-pm.conf
+ #     dest: /etc/modprobe.d/nvidia-pm.conf
+ #     owner: root
+ #     group: root
+
+ # - name: systemd nvidia persistence service
+ #   ansible.builtin.systemd:
+ #     name: nvidia-persistenced.service
+ #     enabled: true
+
+# _   _      _                      _      __  __
+#| \ | | ___| |___      _____  _ __| | __ |  \/  | __ _ _ __   __ _  __ _  ___ _ __
+#|  \| |/ _ \ __\ \ /\ / / _ \| '__| |/ / | |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__|
+#| |\  |  __/ |_ \ V  V / (_) | |  |   <  | |  | | (_| | | | | (_| | (_| |  __/ |
+#|_| \_|\___|\__| \_/\_/ \___/|_|  |_|\_\ |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_|
+#                                                                   |___/
+#  - name: add thinkpad TBT3 dock with static IP config
+#    community.general.nmcli:
+#      conn_name: thinkpad_tbt3_dock_eth
+#      ifname: enx047bcb60e8a1
+#      type: ethernet
+#      ip4: "{{ ip_addresses.p53_dock }}/24"
+#      route_metric4: 100
+#      gw4: "{{ ip_addresses.gateway }}"
+#      state: present
+
+  - name: add Intel X550-T1 TBT3 dock with static IP config RIGHT-PORT
+    community.general.nmcli:
+      conn_name: intelx550_tbt3_dock_eth_RP
+      ifname: enp9s0
+      type: ethernet
+      ip4: "{{ ip_addresses.p53_dock }}/24"
+      route_metric4: 100
+      mtu: 1500
+      gw4: "{{ ip_addresses.gateway }}"
+      dns4:
+      - "{{ ip_addresses.gateway }}"
+      state: present
+      autoconnect: true
+
+  - name: add Intel X550-T1 TBT3 dock with static IP config LEFT-PORT
+    community.general.nmcli:
+      conn_name: intelx550_tbt3_dock_eth_LP
+      ifname: enp47s0
+      type: ethernet
+      ip4: "{{ ip_addresses.p53_dock }}/24"
+      route_metric4: 100
+      mtu: 1500
+      gw4: "{{ ip_addresses.gateway }}"
+      dns4:
+      - "{{ ip_addresses.gateway }}"
+      state: present
+      autoconnect: true
+
+# _   _ _____ ____    __  __                   _
+#| \ | |  ___/ ___|  |  \/  | ___  _   _ _ __ | |_ ___
+#|  \| | |_  \___ \  | |\/| |/ _ \| | | | '_ \| __/ __|
+#| |\  |  _|  ___) | | |  | | (_) | |_| | | | | |_\__ \
+#|_| \_|_|   |____/  |_|  |_|\___/ \__,_|_| |_|\__|___/
+  - name: fstab nas nfs share onedrive
+    ansible.posix.mount:
+      src: "{{ ip_addresses.nas_primary }}:/mnt/tank/onedrive"
+      path: /home/jwhite/shares/onedrive
+      opts: defaults,rw,async,auto,nofail,_netdev,hard,nolock #nolock required for libreoffice to work
+      state: present #only specifies that the device is to be configured in fstab and does not trigger or require a mount
+      fstype: nfs
+      boot: true
+
+  - name: fstab nas nfs share media
+    ansible.posix.mount:
+      src: "{{ ip_addresses.nas_primary }}:/mnt/tank/media"
+      path: /home/jwhite/shares/media
+      opts: defaults,rw,async,auto,nofail,_netdev,hard
+      state: present #only specifies that the device is to be configured in fstab and does not trigger or require a mount
+      fstype: nfs
+      boot: true
+
+  - name: fstab nas nfs share scratch
+    ansible.posix.mount:
+      src: "{{ ip_addresses.nas_primary }}:/mnt/tank-scratch/scratch"
+      path: /home/jwhite/shares/scratch
+      opts: defaults,rw,async,auto,nofail,_netdev,hard
+      state: present #only specifies that the device is to be configured in fstab and does not trigger or require a mount
+      fstype: nfs
+      boot: true
+
+# __  __    _  _____ _        _    ____
+#|  \/  |  / \|_   _| |      / \  | __ )
+#| |\/| | / _ \ | | | |     / _ \ |  _ \
+#| |  | |/ ___ \| | | |___ / ___ \| |_) |
+#|_|  |_/_/   \_\_| |_____/_/   \_\____/
+  - name: matlab.desktop for gnome application menu
+    ansible.builtin.copy:
+      src: files/matlab.desktop
+      dest: /usr/share/applications/matlab.desktop
+      owner: root
+      group: root
+      mode: 0644 #-rw-r--r--
+
+  - name: create directory for matlab files
+    ansible.builtin.file:
+      path: /usr/share/matlab/
+      state: directory
+      owner: root
+      group: root
+      mode: '0755' #drwxr-xr-x
+
+  - name: matlab startup script for hardware opengl on nvidia gpu
+    ansible.builtin.copy:
+      src: files/matlab_startup.sh
+      dest: /usr/share/matlab/matlab_startup.sh
+      owner: root
+      group: root
+      mode: 0755 #-rwxr-xr-x
+
+  - name: matlab.desktop icon
+    ansible.builtin.copy:
+      src: files/icon_matlab.png
+      dest: /usr/share/matlab/icon_matlab.png
+      owner: root
+      group: root
+      mode: 0644 #-rw-r--r--
+
+#       _
+#__   _(_)_ __ ___  _ __ ___
+#\ \ / / | '_ ` _ \| '__/ __|
+# \ V /| | | | | | | | | (__
+#(_)_/ |_|_| |_| |_|_|  \___|
+  - name: copy vimrc config file
+    ansible.builtin.copy:
+      src: files/vimrc
+      dest: /home/jwhite/.vimrc
+      owner: jwhite
+      group: jwhite
+      mode: 0600 #-rw-------
+
+#                   _   _                 _          _                                       _
+# _   _ _ __   __ _| |_| |_ ___ _ __   __| | ___  __| |      _   _ _ __   __ _ _ __ __ _  __| | ___  ___
+#| | | | '_ \ / _` | __| __/ _ \ '_ \ / _` |/ _ \/ _` |_____| | | | '_ \ / _` | '__/ _` |/ _` |/ _ \/ __|
+#| |_| | | | | (_| | |_| ||  __/ | | | (_| |  __/ (_| |_____| |_| | |_) | (_| | | | (_| | (_| |  __/\__ \
+# \__,_|_| |_|\__,_|\__|\__\___|_| |_|\__,_|\___|\__,_|      \__,_| .__/ \__, |_|  \__,_|\__,_|\___||___/
+#                                                                 |_|    |___/
+  - name: install unattended-upgrades
+    package:
+      name:
+        - unattended-upgrades #automatic installation of security upgrades
+        - apt-config-auto-update #APT configuration for automatic cache updates
+        - powermgmt-base #common utils for power management
+      state: present
+
+  - name: copy unattended-upgrades config file
+    copy:
+      src: files/config.unattended-upgrades
+      dest: /etc/apt/apt.conf.d/50unattended-upgrades
+      owner: root
+      group: root
+      mode: 0644 #-rw-r--r--
+
+  - name: systemctl unattended-upgrades
+    ansible.builtin.systemd_service:
+      name: unattended-upgrades
+      state: started
+      enabled: true
+
+#  - name: add unattended-upgrades cron job #will run at midnight daily
+#    ansible.builtin.cron:
+#      name: ansible unattended-upgrades
+#      user: ansible_user
+#      minute: "0"
+#      hour: "0"
+#      job: /usr/bin/unattended-upgrade -d
+
+# ____                      _                 _          _         _           ____ _
+#|  _ \  _____      ___ __ | | ___   __ _  __| |___     / \  _   _| |_ ___    / ___| | ___  __ _ _ __
+#| | | |/ _ \ \ /\ / / '_ \| |/ _ \ / _` |/ _` / __|   / _ \| | | | __/ _ \  | |   | |/ _ \/ _` | '_ \
+#| |_| | (_) \ V  V /| | | | | (_) | (_| | (_| \__ \  / ___ \ |_| | || (_) | | |___| |  __/ (_| | | | |
+#|____/ \___/ \_/\_/ |_| |_|_|\___/ \__,_|\__,_|___/ /_/   \_\__,_|\__\___/   \____|_|\___|\__,_|_| |_|
+
+  - name: add cron job that deletes all files in the ~/Downloads directory at midnight daily
+    ansible.builtin.cron:
+      name: ansible-downloads-cleaner-midnight
+      user: ansible_user
+      minute: "0"
+      hour: "0"
+      job: sudo bash -c "rm -r /home/jwhite/Downloads/*" #requires bash -c as the sh shell is not expanding the wildcard
+      state: present
+
+  - name: add cron job that deletes all files in the ~/Downloads directory at boot #incase machine is off at midnight
+    ansible.builtin.cron:
+      name: ansible-downloads-cleaner-boot
+      user: ansible_user
+      special_time: reboot
+      job: sudo bash -c "rm -r /home/jwhite/Downloads/*" #requires bash -c as the sh shell is not expanding the wildcard
+      state: present
