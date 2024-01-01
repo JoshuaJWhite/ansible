@@ -1,0 +1,35 @@
+---
+# tasks to be completed before running roles
+- name: Pre-run
+  hosts: localhost
+  connection: local
+  become: true
+  gather_facts: true
+  pre_tasks:
+    - name: Pre-run | update package cache (debian, etc.)
+      ansible.builtin.apt:
+        update_cache: true # equivalent of "apt-get update"
+        cache_valid_time: 3600 # only run if the last one is more than 3600 seconds ago
+      changed_when: false # never report 'changed' status
+      when: ansible_facts['os_family'] == 'Debian'
+
+# run roles
+- name: Roles for client devices
+  hosts: localhost
+  connection: local
+  become: true
+  gather_facts: true
+  vars:
+    list_of_hostnames_client:
+      - "p53"
+      - "lenovo"
+      - "dell"
+      - "hp"
+  tasks:
+    - name: Include role | client
+      ansible.builtin.include_role:
+        name: client
+      loop: "{{ list_of_hostnames_client | default([]) }}"
+      when: ansible_facts['hostname'] == item
+
+# end of run cleanup and reporting

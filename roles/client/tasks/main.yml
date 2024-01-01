@@ -1,0 +1,6 @@
+- name: Role-client | import tasks1
+  ansible.builtin.import_tasks:
+    file: echo.yml
+- name: Role-client | import tasks2
+  ansible.builtin.import_tasks:
+    file: echo.yml

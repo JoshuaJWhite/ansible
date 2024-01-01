@@ -1,0 +1,25 @@
+---
+- hosts: localhost
+  connection: local
+  become: true
+  gather_facts: true
+  vars:
+    LIST_HOSTNAME_CLIENT:
+      - "p53"
+      - "dell"
+      - "hp"
+      - "lenovo"
+
+  tasks:
+    - debug: var=ansible_hostname
+    - debug: var=ansible_distribution
+
+    - name: Show facts available on the system
+      ansible.builtin.debug:
+        var: ansible_facts
+
+    - name: Echo back successful hostnames
+      ansible.builtin.command: echo {{ item }}
+      loop: "{{ LIST_HOSTNAME_CLIENT|default([]) }}"
+      when: ansible_facts['hostname'] == item
+
