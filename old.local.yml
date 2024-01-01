@@ -29,6 +29,7 @@
     package:
       name:
         - vim
+        - ansible-lint
         - tree #command for directory tree listing
         - htop
         - dconf-cli #configuration system from GNOME desktop environment. required for wallpaper task below.
