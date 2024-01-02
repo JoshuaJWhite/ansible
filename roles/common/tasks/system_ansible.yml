@@ -35,4 +35,4 @@
     user: "{{ user.ansible }}"
     minute: "*/10"
     state: present
-    job: "sudo /usr/bin/ansible-pull --vault-password-file {{ path.key }} -U https://github.com/JoshuaJWhite/ansible.git 2>&1 | tee /var/log/ansible-pull.log"
+    job: "sudo /usr/bin/ansible-pull --only-if-changed --vault-password-file {{ path.key }} -U https://github.com/JoshuaJWhite/ansible.git 2>&1 | tee /var/log/ansible-pull.log"
