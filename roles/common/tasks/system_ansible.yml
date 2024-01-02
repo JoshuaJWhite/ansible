@@ -12,7 +12,7 @@
     group: root
     mode: '0440' # -r--r-----
     state: touch
-  changed_when: False
+  changed_when: false
 
 - name: System | ansible | set sudo permissions for ansible user
   ansible.builtin.lineinfile:
@@ -27,7 +27,7 @@
     group: "{{ user.ansible }}"
     mode: "0664" # -rw-rw-r--
     state: touch
-  changed_when: False
+  changed_when: false
 
 - name: System | ansible | cron job for ansible-pull
   ansible.builtin.cron:
@@ -36,8 +36,8 @@
     minute: "*/10"
     state: present
     job: >
-      "sudo /usr/bin/ansible-pull 
-      --only-if-changed 
-      --vault-password-file {{ path.key }} 
-      -U https://github.com/JoshuaJWhite/ansible.git 
+      "sudo /usr/bin/ansible-pull
+      --only-if-changed
+      --vault-password-file {{ path.key }}
+      -U https://github.com/JoshuaJWhite/ansible.git
       2>&1 | tee /var/log/ansible-pull.log"
