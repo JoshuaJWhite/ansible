@@ -1,3 +1,0 @@
-- name: Echo back the file name
-  ansible.builtin.debug:
-    msg: "echo.yml"

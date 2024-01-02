@@ -24,4 +24,17 @@
       ansible.builtin.include_role:
         name: common
 
+- name: Roles for client devices
+  hosts: localhost
+  connection: local
+  become: true
+  vars_files:
+    - vault.yml
+  tasks:
+    - name: Include role | client
+      ansible.builtin.include_role:
+        name: client
+      loop: "{{ list_of_hostnames_client_devices | default([]) }}"
+      when: ansible_facts['hostname'] == item
+
 # end of run cleanup and reporting
