@@ -1,0 +1,38 @@
+- name: System | ansible | add ansible user
+  ansible.builtin.user:
+    name: "{{ user.ansible }}"
+    system: true
+    state: present
+    create_home: false
+
+- name: System | ansible | create sudoers file for ansible user
+  ansible.builtin.file:
+    path: "/etc/sudoers.d/{{ user.ansible }}"
+    owner: root
+    group: root
+    mode: '0440' # -r--r-----
+    state: touch
+  changed_when: False
+
+- name: System | ansible | set sudo permissions for ansible user
+  ansible.builtin.lineinfile:
+    path: "/etc/sudoers.d/{{ user.ansible }}"
+    regexp: "^{{ user.ansible }} ALL=(ALL) NOPASSWD: ALL"
+    line: "{{ user.ansible }} ALL=(ALL) NOPASSWD: ALL"
+
+- name: System | ansible | create ansible log file
+  ansible.builtin.file:
+    path: /var/log/ansible-pull.log
+    owner: "{{ user.ansible }}"
+    group: "{{ user.ansible }}"
+    mode: "0664" # -rw-rw-r--
+    state: touch
+  changed_when: False
+
+- name: System | ansible | cron job for ansible-pull
+  ansible.builtin.cron:
+    name: ansible-pull
+    user: "{{ user.ansible }}"
+    minute: "*/10"
+    state: present
+    job: "sudo /usr/bin/ansible-pull --vault-password-file {{ path.key }} -U https://github.com/JoshuaJWhite/ansible.git 2>&1 | tee /var/log/ansible-pull.log"

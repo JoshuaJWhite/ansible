@@ -25,6 +25,10 @@
   ansible.builtin.import_tasks:
     file: packages_flatpak.yml
 
+- name: Role common | import system_ansible.yml
+  ansible.builtin.import_tasks:
+    file: system_ansible.yml
+
 - name: Role common | import file_bashrc.yml
   ansible.builtin.import_tasks:
     file: file_bashrc.yml

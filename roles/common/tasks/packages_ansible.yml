@@ -4,4 +4,5 @@
       - ansible
       - ansible-lint
       - git
+      - cron
   when: ansible_facts['pkg_mgr'] == 'apt'
