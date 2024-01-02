@@ -1,0 +1,12 @@
+- name: file | bashrc
+  ansible.builtin.blockinfile:
+    path: /home/{{ user_standard }}/.bashrc
+    insertafter: "EOF"
+    block: |
+      # user aliases
+      alias ll='ls -laFh'
+      alias l='ls -CF'
+      alias reboot="sudo systemctl reboot"
+      alias poweroff="sudo systemctl poweroff"
+      alias hibernate="sudo systemctl hibernate"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK | common"

@@ -18,7 +18,8 @@
   hosts: localhost
   connection: local
   become: true
-    #  gather_facts: true
+  vars_files:
+    - vault.yml
   tasks:
     - name: Include role | common
       ansible.builtin.include_role:
