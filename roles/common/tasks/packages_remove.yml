@@ -1,7 +1,7 @@
 - name: Packages | remove | default packages
   ansible.builtin.apt:
     name:
-      - nano
+      - firefox-esr
       - libreoffice
       - libreoffice-common
       - libreoffice-core
@@ -12,6 +12,7 @@
       - libreoffice-help-en-gb
       - libreoffice-style-colibre
       - libreoffice-style-elementary
+      - nano
     state: absent
   when: ansible_facts['pkg_mgr'] == 'apt'
 
@@ -37,4 +38,9 @@
       - gnome-tetravex
       - swell-foop
     state: absent
+  when: ansible_facts['pkg_mgr'] == 'apt'
+
+- name: Packages | remove | autoremove
+  ansible.builtin.apt:
+    autoremove: yes
   when: ansible_facts['pkg_mgr'] == 'apt'
