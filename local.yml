@@ -4,7 +4,7 @@
   hosts: localhost
   connection: local
   become: true
-  gather_facts: true
+    #  gather_facts: true
   pre_tasks:
     - name: Pre-run | update package cache (debian, etc.)
       ansible.builtin.apt:
@@ -14,22 +14,14 @@
       when: ansible_facts['os_family'] == 'Debian'
 
 # run roles
-- name: Roles for client devices
+- name: Roles common to all
   hosts: localhost
   connection: local
   become: true
-  gather_facts: true
-  vars:
-    list_of_hostnames_client:
-      - "p53"
-      - "lenovo"
-      - "dell"
-      - "hp"
+    #  gather_facts: true
   tasks:
-    - name: Include role | client
+    - name: Include role | common
       ansible.builtin.include_role:
-        name: client
-      loop: "{{ list_of_hostnames_client | default([]) }}"
-      when: ansible_facts['hostname'] == item
+        name: common
 
 # end of run cleanup and reporting

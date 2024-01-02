@@ -1,0 +1,40 @@
+- name: Packages | remove | default packages
+  ansible.builtin.apt:
+    name:
+      - nano
+      - libreoffice
+      - libreoffice-common
+      - libreoffice-core
+      - libreoffice-gnome
+      - libreoffice-gtk3
+      - libreoffice-help-common
+      - libreoffice-help-en-us
+      - libreoffice-help-en-gb
+      - libreoffice-style-colibre
+      - libreoffice-style-elementary
+    state: absent
+  when: ansible_facts['pkg_mgr'] == 'apt'
+
+- name: Packages | remove | gnome default games
+  ansible.builtin.apt:
+    name:
+      - gnome-2048
+      - aisleriot
+      - gnome-chess
+      - five-or-more
+      - four-in-a-row
+      - gnome-nibbles
+      - hitori
+      - gnome-klotski
+      - lightsoff
+      - gnome-mahjongg
+      - gnome-mines
+      - quadrapassel
+      - iagno
+      - gnome-sudoku
+      - tali
+      - gnome-taquin
+      - gnome-tetravex
+      - swell-foop
+    state: absent
+  when: ansible_facts['pkg_mgr'] == 'apt'

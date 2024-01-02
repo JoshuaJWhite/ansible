@@ -1,0 +1,53 @@
+- name: Packages | repos | bookworm deb
+  ansible.builtin.lineinfile:
+    path: /etc/apt/sources.list
+    regexp: '^deb http://deb.debian.org/debian/ bookworm '
+    line: 'deb http://deb.debian.org/debian/ bookworm main contrib non-free non-free-firmware'
+  when:
+    - ansible_facts['distribution'] == 'Debian'
+    - ansible_facts['distribution_release'] == 'bookworm'
+
+- name: Packages | repos | bookworm deb-src
+  ansible.builtin.lineinfile:
+    path: /etc/apt/sources.list
+    regexp: '^deb-src http://deb.debian.org/debian/ bookworm '
+    line: 'deb-src http://deb.debian.org/debian/ bookworm main contrib non-free non-free-firmware'
+  when:
+    - ansible_facts['distribution'] == 'Debian'
+    - ansible_facts['distribution_release'] == 'bookworm'
+
+- name: Packages | repos | bookworm-security deb
+  ansible.builtin.lineinfile:
+    path: /etc/apt/sources.list
+    regexp: '^deb http://deb.debian.org/debian-security/ bookworm-security '
+    line: 'deb http://deb.debian.org/debian-security/ bookworm-security main contrib non-free non-free-firmware'
+  when:
+    - ansible_facts['distribution'] == 'Debian'
+    - ansible_facts['distribution_release'] == 'bookworm'
+
+- name: Packages | repos | bookworm-security deb-src
+  ansible.builtin.lineinfile:
+    path: /etc/apt/sources.list
+    regexp: '^deb-src http://deb.debian.org/debian-security/ bookworm-security '
+    line: 'deb-src http://deb.debian.org/debian-security/ bookworm-security main contrib non-free non-free-firmware'
+  when:
+    - ansible_facts['distribution'] == 'Debian'
+    - ansible_facts['distribution_release'] == 'bookworm'
+
+- name: Packages | repos | bookworm-updates deb
+  ansible.builtin.lineinfile:
+    path: /etc/apt/sources.list
+    regexp: '^deb http://deb.debian.org/debian/ bookworm-updates '
+    line: 'deb http://deb.debian.org/debian/ bookworm-updates main contrib non-free non-free-firmware'
+  when:
+    - ansible_facts['distribution'] == 'Debian'
+    - ansible_facts['distribution_release'] == 'bookworm'
+
+- name: Packages | repos | bookworm-updates deb-src
+  ansible.builtin.lineinfile:
+    path: /etc/apt/sources.list
+    regexp: '^deb-src http://deb.debian.org/debian/ bookworm-updates '
+    line: 'deb-src http://deb.debian.org/debian/ bookworm-updates main contrib non-free non-free-firmware'
+  when:
+    - ansible_facts['distribution'] == 'Debian'
+    - ansible_facts['distribution_release'] == 'bookworm'

@@ -1,0 +1,26 @@
+#            _
+#  _ __ ___ | | ___ _    ___ ___  _ __ ___  _ __ ___   ___  _ __
+# | '__/ _ \| |/ _ (_)  / __/ _ \| '_ ` _ \| '_ ` _ \ / _ \| '_ \
+# | | | (_) | |  __/_  | (_| (_) | | | | | | | | | | | (_) | | | |
+# |_|  \___/|_|\___(_)  \___\___/|_| |_| |_|_| |_| |_|\___/|_| |_|
+# main.yml for roles common to all
+
+- name: Role common | import packages_repo.yml
+  ansible.builtin.import_tasks:
+    file: packages_repo.yml
+
+- name: Role common | import packages_remove.yml
+  ansible.builtin.import_tasks:
+    file: packages_remove.yml
+
+- name: Role common | import packages_cli.yml
+  ansible.builtin.import_tasks:
+    file: packages_cli.yml
+
+- name: Role common | import packages_ansible.yml
+  ansible.builtin.import_tasks:
+    file: packages_ansible.yml
+
+- name: Role common | import packages_flatpak.yml
+  ansible.builtin.import_tasks:
+    file: packages_flatpak.yml

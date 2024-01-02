@@ -1,0 +1,12 @@
+- name: Packages | install | flatpak
+  ansible.builtin.apt:
+    name:
+      - flatpak
+    state: present
+  when: ansible_facts['pkg_mgr'] == 'apt'
+
+- name: Packages | install | flatpak | add flathub repo
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo

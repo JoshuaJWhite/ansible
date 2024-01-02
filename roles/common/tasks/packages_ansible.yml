@@ -1,0 +1,7 @@
+- name: Packages | install | ansible tools
+  ansible.builtin.apt:
+    name:
+      - ansible
+      - ansible-lint
+      - git
+  when: ansible_facts['pkg_mgr'] == 'apt'
