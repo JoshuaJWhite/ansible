@@ -16,3 +16,11 @@
 - name: Role workstation | import system_network.yml
   ansible.builtin.import_tasks:
     file: system_network.yml
+
+- name: Role workstation | import system_autologin.yml
+  ansible.builtin.import_tasks:
+    file: system_autologin.yml
+
+- name: Role workstation | import system_autolock.yml
+  ansible.builtin.import_tasks:
+    file: system_autolock.yml

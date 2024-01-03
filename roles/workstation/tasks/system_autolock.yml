@@ -1,0 +1,17 @@
+- name: System | auto-lock added to autostart
+  ansible.builtin.blockinfile:
+    path: /home/{{ user.standard }}/.config/autostart/autolock.desktop
+    create: true
+    owner: "{{ user.standard }}"
+    group: "{{ user.standard }}"
+    mode: '0644' # -rw-r--r--
+    marker: "# {mark} ANSIBLE MANAGED BLOCK | role=workstation"
+    block: |
+      [Desktop Entry]
+      Type=Application
+      Name=autolock
+      Exec=/usr/bin/loginctl lock-session
+      Comment=Auto-lock after auto-login occurs.
+      Categories=Utility;
+      Terminal=false
+
