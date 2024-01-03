@@ -58,3 +58,8 @@
   become: true
   become_user: "{{ user.standard }}"
   when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
+
+- name: Packages | install | sunshine | enable kms for wayland
+  ansible.builtin.command:
+    cmd: sudo setcap cap_sys_admin+p $(readlink -f $(which sunshine))
+  when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
