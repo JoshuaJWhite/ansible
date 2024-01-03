@@ -42,5 +42,5 @@
 
 - name: Packages | remove | autoremove
   ansible.builtin.apt:
-    autoremove: yes
+    autoremove: true
   when: ansible_facts['pkg_mgr'] == 'apt'
