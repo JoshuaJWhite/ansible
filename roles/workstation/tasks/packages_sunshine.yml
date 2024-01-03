@@ -91,6 +91,7 @@
     owner: "{{user.standard }}"
     group: "{{ user.standard }}"
     mode: '0644' # -rw-r--r--
+    force: false
   when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
 
 - name: Packages | install | sunshine | turn off terminal for autostart
