@@ -1,13 +1,13 @@
 - name: System | auto-login on
   ansible.builtin.lineinfile:
     path: /etc/gdm3/daemon.conf
-    regexp: '^#  AutomaticLoginEnable = true'
-    line: 'AutomaticLoginEnable=true'
+    regexp: 'AutomaticLoginEnable =.*'
+    line: 'AutomaticLoginEnable = true'
     create: false
 
 - name: System | auto-login user set
   ansible.builtin.lineinfile:
     path: /etc/gdm3/daemon.conf
-    regexp: '^#  AutomaticLogin = user1'
-    line: "AutomaticLogin={{ user.standard }}"
+    regexp: 'AutomaticLogin =.*'
+    line: "AutomaticLogin = {{ user.standard }}"
     create: false
