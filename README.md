@@ -17,8 +17,8 @@ sudo nano /etc/apt/sources.list
 
 Change the above file to match the below example:
 ```
-deb http://deb.debian.org/debian bookworm main
-deb-src http://deb.debian.org/debian bookworm main
+deb http://deb.debian.org/debian/ bookworm main
+deb-src http://deb.debian.org/debian/ bookworm main
 ```
 
 Update the initial install:
