@@ -1,0 +1,60 @@
+- name: Packages | install | sunshine | install .deb
+  ansible.builtin.apt:
+    deb: https://github.com/LizardByte/Sunshine/releases/latest/download/sunshine-debian-bookworm-amd64.deb
+    state: present
+  when:
+    - ansible_facts['pkg_mgr'] == 'apt'
+    - ansible_facts['distribution'] == 'Debian'
+    - ansible_facts['distribution_release'] == 'bookworm'
+
+- name: Packages | install | sunshine | check if installed
+  ansible.builtin.command:
+    cmd: dpkg-query -W sunshine
+  register: check_sunshine_deb_installed # rc=0 <- installed, rc=1 <- not installed
+  failed_when: check_sunshine_deb_installed.rc > 1 # rc>1 <- failed
+  changed_when: false
+  when: ansible_facts['pkg_mgr'] == 'apt'
+
+- name: Packages | install | sunshine | udev rule
+  ansible.builtin.lineinfile:
+    path: /etc/udev/rules.d/85-sunshine.rules
+    regexp: '^KERNEL=="uinput", SUBSYSTEM=="misc", OPTIONS+="static_node=uinput", TAG+="uaccess"'
+    line: 'KERNEL=="uinput", SUBSYSTEM=="misc", OPTIONS+="static_node=uinput", TAG+="uaccess"'
+    create: true
+    owner: root
+    group: root
+    mode: '0644' # -rw-r--r--
+  when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
+
+- name: Packages | install | sunshine | create autostart service
+  ansible.builtin.blockinfile:
+    path: /home/{{ user.standard }}/.config/systemd/user/sunshine.service
+    create: true
+    owner: "{{ user.standard }}"
+    group: "{{ user.standard }}"
+    mode: '0660' # -rw-rw----
+    marker: "# {mark} ANSIBLE MANAGED BLOCK | role=workstation"
+    block: |
+      [Unit]
+      Description=Sunshine self-hosted game stream host for Moonlight.
+      StartLimitIntervalSec=500
+      StartLimitBurst=5
+
+      [Service]
+      ExecStart=/usr/bin/sunshine
+      Restart=on-failure
+      RestartSec=5s
+
+      [Install]
+      WantedBy=graphical-session.target
+  when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
+
+- name: Packages | install | sunshine | enable autostart service
+  ansible.builtin.systemd_service:
+    name: sunshine.service
+    state: "started"
+    enabled: false
+    scope: "user"
+  become: true
+  become_user: "{{ user.standard }}"
+  when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed

@@ -1,0 +1,11 @@
+- name: Packages | install | flatpak(s)
+  community.general.flatpak:
+    name:
+      - com.github.Eloston.UngoogledChromium # ungoogled-chromium - A lightweight approach to removing Google web service dependency
+      - com.github.jeromerobert.pdfarranger # PDF Arranger - PDF Merging, Rearranging, Splitting, Rotating and Cropping
+      - com.moonlight_stream.Moonlight # Moonlight - Play games remotely from your NVIDIA GameStream-enabled PC
+      - com.valvesoftware.Steam # Steam - Launcher for the Steam software distribution service
+      - org.gimp.GIMP # GIMP - Create images and edit photographs
+      - org.libreoffice.LibreOffice # LibreOffice - The LibreOffice productivity suite
+      - org.mozilla.firefox # Firefox - Fast, Private & Safe Web Browser
+    state: present

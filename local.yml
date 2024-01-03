@@ -38,4 +38,17 @@
       loop: "{{ list_of_hostnames_client_devices | default([]) }}"
       when: ansible_facts['hostname'] == item
 
+- name: Roles for workstation devices
+  hosts: localhost
+  connection: local
+  become: true
+  vars_files:
+    - vault.yml
+  tasks:
+    - name: Include role | workstation
+      ansible.builtin.include_role:
+        name: workstation
+      loop: "{{ list_of_hostnames_workstation_devices | default([]) }}"
+      when: ansible_facts['hostname'] == item
+
 # end of run cleanup and reporting
