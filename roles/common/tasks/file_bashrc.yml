@@ -1,6 +1,10 @@
 - name: file | bashrc
   ansible.builtin.blockinfile:
     path: /home/{{ user.standard }}/.bashrc
+    create: true 
+    owner: "{{ user.standard }}"
+    group: "{{ user.standard }}"
+    mode: '0644'
     insertafter: "EOF"
     block: |
       # user aliases
