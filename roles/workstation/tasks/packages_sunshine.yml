@@ -15,75 +15,6 @@
   changed_when: false
   when: ansible_facts['pkg_mgr'] == 'apt'
 
-#- name: Packages | install | sunshine | udev rule
-#  ansible.builtin.lineinfile:
-#    path: /etc/udev/rules.d/85-sunshine.rules
-#    regexp: '^KERNEL=="uinput", SUBSYSTEM=="misc", OPTIONS+="static_node=uinput", TAG+="uaccess"'
-#    line: 'KERNEL=="uinput", SUBSYSTEM=="misc", OPTIONS+="static_node=uinput", TAG+="uaccess"'
-#    create: true
-#    owner: root
-#    group: root
-#    mode: '0644' # -rw-r--r--
-#  when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
-#
-#- name: Packages | install | sunshine | create autostart service
-#  ansible.builtin.blockinfile:
-#    path: /home/{{ user.standard }}/.config/systemd/user/sunshine.service
-#    create: true
-#    owner: "{{ user.standard }}"
-#    group: "{{ user.standard }}"
-#    mode: '0660' # -rw-rw----
-#    marker: "# {mark} ANSIBLE MANAGED BLOCK | role=workstation"
-#    block: |
-#      [Unit]
-#      Description=Sunshine self-hosted game stream host for Moonlight.
-#      StartLimitIntervalSec=500
-#      StartLimitBurst=5
-#
-#      [Service]
-#      ExecStart=/usr/bin/sunshine
-#      Restart=on-failure
-#      RestartSec=5s
-#
-#      [Install]
-#      WantedBy=graphical-session.target
-#  when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
-#
-#- name: Packages | install | sunshine | enable autostart service
-#  ansible.builtin.systemd_service:
-#    name: sunshine.service
-#    state: "started"
-#    enabled: true
-#    scope: "user"
-#  become: true
-#  become_user: "{{ user.standard }}"
-#  when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
-#
-#- name: Packages | install | sunshine | enable kms for wayland
-#  ansible.builtin.command:
-#    cmd: sudo setcap cap_sys_admin+p $(readlink -f $(which sunshine))
-#  when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
-
-#- name: Packages | install | sunshine | create autostart with gnome desktopi
-#  ansible.builtin.blockinfile:
-#    path: /home/{{ user.standard }}/.config/autostart/sunshine.desktop
-#    create: true
-#    owner: "{{ user.standard }}"
-#    group: "{{ user.standard }}"
-#    mode: '0644' # -rw-rw----
-#    marker: "# {mark} ANSIBLE MANAGED BLOCK | role=workstation"
-#    block: |
-#      [Desktop Entry]
-#      Type=Application
-#      Name=Sunshine
-#      Exec=sunshine
-#      Version=1.0
-#      Comment=Sunshine is a self-hosted game stream host for Moonlight.
-#      Icon=sunshine
-#      Categories=Utility;
-#      Terminal=false
-#  when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
-
 - name: Packages | install | sunshine | copy included .desktop to .autostart
   ansible.builtin.copy:
     src: /usr/share/applications/sunshine.desktop
@@ -97,7 +28,7 @@
 - name: Packages | install | sunshine | turn off terminal for autostart
   ansible.builtin.lineinfile:
     path: /home/{{ user.standard }}/.config/autostart/sunshine.desktop
-    regexp: '^Terminal='
+    regexp: '^Terminal=.*'
     line: 'Terminal=false'
     create: false
   when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
