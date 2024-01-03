@@ -12,5 +12,6 @@
       - tree
       - vim
       - vifm # flexible vi-like file manager using ncurses
+      - xz-utils
     state: present
   when: ansible_facts['pkg_mgr'] == 'apt'

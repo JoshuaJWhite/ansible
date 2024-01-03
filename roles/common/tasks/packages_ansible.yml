@@ -5,4 +5,6 @@
       - ansible-lint
       - git
       - cron
+      - xz-utils
+    state: present
   when: ansible_facts['pkg_mgr'] == 'apt'
