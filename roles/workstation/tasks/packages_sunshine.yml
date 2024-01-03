@@ -19,7 +19,7 @@
   ansible.builtin.copy:
     src: /usr/share/applications/sunshine.desktop
     dest: /home/{{ user.standard }}/.config/autostart
-    owner: "{{user.standard }}"
+    owner: "{{ user.standard }}"
     group: "{{ user.standard }}"
     mode: '0644' # -rw-r--r--
     force: false
