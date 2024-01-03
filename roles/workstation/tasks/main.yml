@@ -12,3 +12,7 @@
 - name: Role workstation | import package_sunshine.yml
   ansible.builtin.import_tasks:
     file: packages_sunshine.yml
+
+- name: Role workstation | import system_network.yml
+  ansible.builtin.import_tasks:
+    file: system_network.yml
