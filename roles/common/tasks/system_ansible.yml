@@ -5,20 +5,15 @@
     state: present
     create_home: false
 
-- name: System | ansible | create sudoers file for ansible user
-  ansible.builtin.file:
-    path: "/etc/sudoers.d/{{ user.ansible }}"
-    owner: root
-    group: root
-    mode: '0440' # -r--r-----
-    state: touch
-  changed_when: false
-
 - name: System | ansible | set sudo permissions for ansible user
   ansible.builtin.lineinfile:
     path: "/etc/sudoers.d/{{ user.ansible }}"
     regexp: "^{{ user.ansible }} ALL=(ALL) NOPASSWD: ALL"
     line: "{{ user.ansible }} ALL=(ALL) NOPASSWD: ALL"
+    create: true
+    owner: "root"
+    group: "root"
+    mode: '0440' # -r--r-----
 
 - name: System | ansible | create ansible log file
   ansible.builtin.file:
