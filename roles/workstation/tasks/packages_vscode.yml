@@ -1,0 +1,7 @@
+- name: Packages | install | vscode | install .deb
+  ansible.builtin.apt:
+    deb: "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
+    state: "present"
+  when:
+    - ansible_facts['pkg_mgr'] == 'apt'
+    - ansible_facts['distribution'] == 'Debian'

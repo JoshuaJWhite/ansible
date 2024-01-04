@@ -24,3 +24,11 @@
 - name: Role workstation | import system_autolock.yml
   ansible.builtin.import_tasks:
     file: system_autolock.yml
+
+- name: Role workstation | import system_mount.yml
+  ansible.builtin.import_tasks:
+    file: system_mount.yml
+
+- name: Role workstation | import packages_vscode.yml
+  ansible.builtin.import_tasks:
+    file: packages_vscode.yml
