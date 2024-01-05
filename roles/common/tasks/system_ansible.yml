@@ -24,7 +24,7 @@
     state: touch
   changed_when: false
 
-- name: System | ansible | cron job for ansible-pull on changes
+- name: System | ansible | cron job for ansible-pull
   ansible.builtin.cron:
     name: ansible-pull
     user: "{{ user.ansible }}"
@@ -33,31 +33,6 @@
     job: >
       sudo /usr/bin/ansible-pull
       --only-if-changed
-      --vault-password-file {{ path.key }}
-      -U https://github.com/JoshuaJWhite/ansible.git
-      2>&1 | tee /var/log/ansible-pull.log
-
-- name: System | ansible | cron job for ansible-pull at midnight
-  ansible.builtin.cron:
-    name: ansible-pull
-    user: "{{ user.ansible }}"
-    minute: "0"
-    hour: "0"
-    state: present
-    job: >
-      sudo /usr/bin/ansible-pull
-      --vault-password-file {{ path.key }}
-      -U https://github.com/JoshuaJWhite/ansible.git
-      2>&1 | tee /var/log/ansible-pull.log
-
-- name: System | ansible | cron job for ansible-pull at boot
-  ansible.builtin.cron:
-    name: ansible-pull
-    user: "{{ user.ansible }}"
-    special_time: reboot
-    state: present
-    job: >
-      sudo /usr/bin/ansible-pull
       --vault-password-file {{ path.key }}
       -U https://github.com/JoshuaJWhite/ansible.git
       2>&1 | tee /var/log/ansible-pull.log
