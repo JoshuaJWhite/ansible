@@ -1,4 +1,4 @@
-- name: Packages | install | cli tools
+- name: Packages | install | CFD tools
   ansible.builtin.apt:
     name:
       - gnuplot
