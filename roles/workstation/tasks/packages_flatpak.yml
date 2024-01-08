@@ -7,6 +7,7 @@
       - com.valvesoftware.Steam # Steam - Launcher for the Steam software distribution service
       - org.gimp.GIMP # GIMP - Create images and edit photographs
       - org.inkscape.Inkscape # Inkscape - Vector Graphics Editor
+      - org.kde.okular # Okular = Document Viewer
       - org.libreoffice.LibreOffice # LibreOffice - The LibreOffice productivity suite
       - org.mozilla.firefox # Firefox - Fast, Private & Safe Web Browser
     state: present
