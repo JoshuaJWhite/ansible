@@ -6,6 +6,7 @@
       - com.github.jeromerobert.pdfarranger # PDF Arranger - PDF Merging, Rearranging, Splitting, Rotating and Cropping
       - com.moonlight_stream.Moonlight # Moonlight - Play games remotely from your NVIDIA GameStream-enabled PC
       - org.gimp.GIMP # GIMP - Create images and edit photographs
+      - org.inkscape.Inkscape # Inkscape - Vector Graphics Editor
       - org.libreoffice.LibreOffice # LibreOffice - The LibreOffice productivity suite
       - org.mozilla.firefox # Firefox - Fast, Private & Safe Web Browser
       - tv.plex.PlexDesktop # Plex - Plex client for desktop computers
