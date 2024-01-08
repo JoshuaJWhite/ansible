@@ -4,6 +4,7 @@
       - curl
       - figlet # for making text banners of ASCII characters
       - git
+      - gnuplot
       - htop
       - intel-gpu-tools # tools for debugging the Intel graphics driver
       - iotop # simple top-like I/O monitor
