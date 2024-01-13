@@ -33,6 +33,6 @@
   ansible.builtin.import_tasks:
     file: packages_vscode.yml
 
-- name: Role workstation | import packages_cfd.yml
+- name: Role workstation | import packages_apt.yml
   ansible.builtin.import_tasks:
-    file: packages_cfd.yml
+    file: packages_apt.yml

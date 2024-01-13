@@ -1,7 +1,8 @@
-- name: Packages | install | CFD tools
+- name: Packages | install | apt packages
   ansible.builtin.apt:
     name:
       - gnuplot
       - paraview
+      - texlive-full # TeX Live: metapackage pulling in all components of TeX Live
     state: present
   when: ansible_facts['pkg_mgr'] == 'apt'
