@@ -57,6 +57,7 @@
     special_time: "reboot"
     state: "present"
     job: >
+      sleep 120 &&
       sudo /usr/bin/ansible-pull
       --vault-password-file {{ path.key }}
       -U https://github.com/JoshuaJWhite/ansible.git
