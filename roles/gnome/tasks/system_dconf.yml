@@ -17,3 +17,60 @@
   community.general.dconf:
     key: "/org/gnome/desktop/interface/color-scheme"
     value: "'prefer-light'" # the default is "'default'"
+
+- name: System | dconf | keybinding | custom0 | binding
+  become_user: "jwhite"
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding"
+    value: "'<Shift><Alt>Return'"
+    state: "present"
+- name: System | dconf | keybinding | custom0 | command
+  become_user: "jwhite"
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command"
+    value: "'gnome-terminal'"
+    state: "present"
+- name: System | dconf | keybinding | custom0 | name
+  become_user: "jwhite"
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name"
+    value: "'terminal'"
+    state: "present"
+
+- name: System | dconf | keybinding | custom1 | binding
+  become_user: "jwhite"
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding"
+    value: "'<Alt>r'"
+    state: "present"
+- name: System | dconf | keybinding | custom1 | command
+  become_user: "jwhite"
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command"
+    value: "'gnome-terminal -- lf'"
+    state: "present"
+- name: System | dconf | keybinding | custom1 | name
+  become_user: "jwhite"
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/name"
+    value: "'lf file manager'"
+    state: "present"
+
+- name: System | dconf | keybinding | custom2 | binding
+  become_user: "jwhite"
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/binding"
+    value: "'<Alt>c'"
+    state: "present"
+- name: System | dconf | keybinding | custom2 | command
+  become_user: "jwhite"
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/command"
+    value: "'gnome-calculator'"
+    state: "present"
+- name: System | dconf | keybinding | custom2 | name
+  become_user: "jwhite"
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/name"
+    value: "'calculator'"
+    state: "present"
