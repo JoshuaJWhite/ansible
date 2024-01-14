@@ -8,3 +8,7 @@
 - name: Role client | import packages_flatpak.yml
   ansible.builtin.import_tasks:
     file: packages_flatpak.yml
+
+- name: Role client | import system_network.yml
+  ansible.builtin.import_tasks:
+    file: system_network.yml

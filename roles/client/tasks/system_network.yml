@@ -1,0 +1,27 @@
+- name: System | static network eth0
+  community.general.nmcli:
+    conn_name: "eth0_static"
+    ifname: "{{ client0.interface }}"
+    type: "ethernet"
+    ip4: "{{ ip_address.client0 }}/24"
+    gw4: "{{ ip_address.gateway }}"
+    dns4: "{{ ip_address.gateway }}"
+    mtu: 1500
+    route_metric4: 100
+    autoconnect: true
+    state: "present"
+
+- name: System | dhcp network eth0
+  community.general.nmcli:
+    conn_name: "eth0_dhcp"
+    ifname: "{{ client0.interface }}"
+    type: "ethernet"
+    route_metric4: 200
+    autoconnect: false
+    never_default4: true
+    state: "present"
+
+- name: System | remove default Wired connection 1
+  community.general.nmcli:
+    conn_name: "Wired connection 1"
+    state: "absent"
