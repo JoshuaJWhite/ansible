@@ -6,6 +6,6 @@
 #                       |___/
 # main.yml for roles on gnome systems
 
-- name: Role common | import system_dconf.yml
+- name: Role gnome | import system_dconf.yml
   ansible.builtin.import_tasks:
     file: system_dconf.yml

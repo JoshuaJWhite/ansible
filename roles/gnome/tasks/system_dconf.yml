@@ -1,18 +1,17 @@
 - name: Packages | install | dconf package
-  package:
+  ansible.builtin.package:
     name:
-      - dconf-cli #configuration system from GNOME desktop environment. required for wallpaper task below.
+      - dconf-cli # configuration system from GNOME desktop environment. required for wallpaper task below.
     state: present
 
 - name: System | dconf | set window buttons
   become_user: jwhite
-  dconf:
+  community.general.dconf:
     key: "/org/gnome/desktop/wm/preferences/button-layout"
-    value: "'appmenu:minimize,maximize,close'" #the default is "'appmenu:close'"
+    value: "'appmenu:minimize,maximize,close'" # the default is "'appmenu:close'"
 
 - name: System | dconf | set gnome color scheme
   become_user: jwhite
-  dconf:
+  community.general.dconf:
     key: "/org/gnome/desktop/interface/color-scheme"
-    value: "'prefer-light'" #the default is "'default'"
-
+    value: "'prefer-light'" # the default is "'default'"
