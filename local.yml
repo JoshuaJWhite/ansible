@@ -51,4 +51,17 @@
       loop: "{{ list_of_hostnames_workstation_devices | default([]) }}"
       when: ansible_facts['hostname'] == item
 
+- name: Roles for gnome systems
+  hosts: localhost
+  connection: local
+  become: true
+  vars_files:
+    - vault.yml
+  tasks:
+    - name: Include role | gnome devices
+      ansible.builtin.include_role:
+        name: gnome
+      loop: "{{ list_of_hostnames_gnome_devices | default([]) }}"
+      when: ansible_facts['hostname'] == item
+
 # end of run cleanup and reporting
