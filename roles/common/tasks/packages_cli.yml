@@ -11,6 +11,7 @@
       - iperf3 # Internet Protocol bandwidth measuring tool
       - lf # range inspired file manager
       - neofetch # Shows Linux System Information with Distribution Logo
+      - stress # tool to impose load on and stress test a computer system
       - tree
       - vim
       - vifm # flexible vi-like file manager using ncurses
