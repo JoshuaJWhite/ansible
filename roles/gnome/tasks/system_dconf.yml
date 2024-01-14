@@ -2,6 +2,7 @@
   ansible.builtin.package:
     name:
       - dconf-cli # configuration system from GNOME desktop environment. required for wallpaper task below.
+      - dconf-editor # change gnome settings
     state: present
 
 - name: System | dconf | set window buttons
