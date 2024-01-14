@@ -3,6 +3,7 @@
     name:
       - dconf-cli # configuration system from GNOME desktop environment. required for wallpaper task below.
       - dconf-editor # change gnome settings
+      - python3-psutil # module providing convenience functions for managing processes (Python3)
     state: present
 
 - name: System | dconf | set window buttons
