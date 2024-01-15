@@ -1,0 +1,7 @@
+- name: System | pve nag
+  ansible.builtin.replace:
+    path: /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js.backup
+    before: '^\s*title: gettext(.No valid subscription.),.*'
+    regexp: '^\s*Ext.Msg.show({.*'
+    replace: "\t\t\tvoid({"
+    backup: true

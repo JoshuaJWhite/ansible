@@ -1,0 +1,24 @@
+# tasks to be completed before running roles
+- name: Pre-run
+  hosts: proxmox
+  become: true
+  vars_files:
+    - vault.yml
+  pre_tasks:
+    - name: Pre-run | update package cache (debian, etc.)
+      ansible.builtin.apt:
+        update_cache: true # equivalent of "apt-get update"
+        cache_valid_time: 3600 # only run if the last one is more than 3600 seconds ago
+      changed_when: false # never report 'changed' status
+      ignore_errors: true
+
+# run roles
+- name: Roles for proxmox server
+  hosts: proxmox
+  become: true
+  vars_files:
+    - vault.yml
+  tasks:
+    - name: Include role | proxmox
+      ansible.builtin.include_role:
+        name: proxmox

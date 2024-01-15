@@ -36,3 +36,30 @@ Run ansible pull:
 ```
 sudo ansible-pull -U https://github.com/JoshuaJWhite/ansible.git
 ```
+
+
+# Pre Config: Proxmox 8
+
+Run the following to facilitate ansible playbook configuration:
+
+First, copy ssh key to proxmox server:
+```
+$ ssh-copy-id -i ~/.ssh/<ssh private key> <pve user>@<pve ip>
+```
+
+Next, ssh in then update the package cache and install ansible and dependencies:
+```
+# apt update
+# apt install ansible git
+```
+
+Lastly, run the ansible playbook for proxmox from local device:
+```
+$ ansible-playbook proxmox.yml
+```
+
+Furthermore, ensure IOMMU is turned on in the BIOS.
+For Dell PowerEdge 13th Gen units this is located at:
+System BIOS > Processor Settings > Virtualization Technology > "Enabled"
+System BIOS > Integrated Devices > SR-IOV Global Enable > "Enable"
+
