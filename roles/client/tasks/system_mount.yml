@@ -15,6 +15,7 @@
     - "onedrive"
     - "media"
     - "scratch"
+    - "iphone"
   changed_when: false # otherwise always changed
 
 - name: System | mount | fstab nas nfs share onedrive
@@ -39,6 +40,15 @@
   ansible.posix.mount:
     src: "{{ ip_address.nas_primary }}:{{ nas_path_primary.scratch }}"
     path: /home/{{ user.standard }}/shares/scratch
+    opts: defaults,rw,async,auto,nofail,_netdev,hard
+    state: present
+    fstype: nfs
+    boot: true
+
+- name: System | mount | fstab nas nfs share iphone
+  ansible.posix.mount:
+    src: "{{ ip_address.nas_primary }}:{{ nas_path_primary.iphone }}"
+    path: /home/{{ user.standard }}/shares/iphone
     opts: defaults,rw,async,auto,nofail,_netdev,hard
     state: present
     fstype: nfs
