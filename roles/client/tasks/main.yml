@@ -12,3 +12,7 @@
 - name: Role client | import system_network.yml
   ansible.builtin.import_tasks:
     file: system_network.yml
+
+- name: Role client | import system_mount.yml
+  ansible.builtin.import_tasks:
+    file: system_mount.yml
