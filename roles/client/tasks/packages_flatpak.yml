@@ -5,6 +5,7 @@
       - com.github.iwalton3.jellyfin-media-player # Jellyfin Media Player - Desktop client for Jellyfin media server
       - com.github.jeromerobert.pdfarranger # PDF Arranger - PDF Merging, Rearranging, Splitting, Rotating and Cropping
       - com.moonlight_stream.Moonlight # Moonlight - Play games remotely from your NVIDIA GameStream-enabled PC
+      - org.chromium.Chromium # Chromium Web Browser - The web browser from Chromium project
       - org.gimp.GIMP # GIMP - Create images and edit photographs
       - org.inkscape.Inkscape # Inkscape - Vector Graphics Editor
       - org.libreoffice.LibreOffice # LibreOffice - The LibreOffice productivity suite
