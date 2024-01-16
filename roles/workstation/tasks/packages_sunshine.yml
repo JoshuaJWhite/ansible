@@ -15,10 +15,10 @@
   changed_when: false
   when: ansible_facts['pkg_mgr'] == 'apt'
 
-- name: Packages | install | sunshine | copy included .desktop to .autostart
+- name: Packages | install | sunshine | copy included .desktop to autostart
   ansible.builtin.copy:
     src: /usr/share/applications/sunshine.desktop
-    dest: /home/{{ user.standard }}/.config/autostart
+    dest: /home/{{ user.standard }}/.config/autostart/sunshine.desktop
     owner: "{{ user.standard }}"
     group: "{{ user.standard }}"
     mode: '0644' # -rw-r--r--
