@@ -10,5 +10,6 @@
       - org.inkscape.Inkscape # Inkscape - Vector Graphics Editor
       - org.libreoffice.LibreOffice # LibreOffice - The LibreOffice productivity suite
       - org.mozilla.firefox # Firefox - Fast, Private & Safe Web Browser
+      - org.qbittorrent.qBittorrent # qBittorrent - An open-source Bittorrent client
       - tv.plex.PlexDesktop # Plex - Plex client for desktop computers
     state: present

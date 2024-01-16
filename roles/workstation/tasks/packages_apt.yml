@@ -4,6 +4,5 @@
       - gnuplot
       - paraview
       - texlive-full # TeX Live: metapackage pulling in all components of TeX Live
-      - qbittorrent
     state: present
   when: ansible_facts['pkg_mgr'] == 'apt'
