@@ -1,0 +1,96 @@
+- name: Post-install configuration for matlab
+  hosts: localhost
+  connection: local
+  become: true
+  vars_files:
+    - vault.yml
+  tasks:
+    - name: Packages | install | matlab | lib c++
+      ansible.builtin.apt:
+        name:
+          - libstdc++6
+        state: "present"
+
+    - name: System | matlab | backing up old lib c++ link included with matlab
+      ansible.builtin.file:
+        src: /usr/local/MATLAB/R2023b/sys/os/glnxa64/libstdc++.so.6.0.28
+        dest: /usr/local/MATLAB/R2023b/sys/os/glnxa64/libstdc++.so.6.backup
+        state: link
+        owner: "root"
+        group: "root"
+        mode: '0777' # lrwxrwxrwx
+
+    - name: System | matlab | link lib c++ to system lib
+      ansible.builtin.file:
+        src: /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+        dest: /usr/local/MATLAB/R2023b/sys/os/glnxa64/libstdc++.so.6
+        state: link
+        owner: "root"
+        group: "root"
+        mode: '0777' # lrwxrwxrwx
+
+    - name: System | matlab | fonts | moving fonts
+      ansible.builtin.file:
+        path: /home/{{ user.standard }}/Downloads/helvetica_ttf
+        dest: /usr/share/fonts/helvetica_ttf
+        state: "directory"
+        owner: "root"
+        group: "root"
+        mode: '0755' # drwxr-xr-x
+      register: fonts_config
+
+    - name: System | matlab | fonts | refresh cache
+      ansible.builtin.command: fc-cache -f -v
+      when: fonts_config.changed
+
+    - name: System | matlab | create directory for matlab files
+      ansible.builtin.file:
+        path: /usr/share/matlab/
+        state: "directory"
+        owner: "root"
+        group: "root"
+        mode: '0755' # drwxr-xr-x
+
+    - name: System | matlab | start script
+      ansible.builtin.blockinfile:
+        path: /usr/share/matlab/matlab_startup.sh
+        create: true
+        owner: "root"
+        group: "root"
+        mode: '0555' # -r-xr-xr-x
+        marker: "# {mark} ANSIBLE MANAGED BLOCK | matlab_postinstall.yml"
+        block: |
+          #!/bin/bash
+          # __  __    _  _____ _        _    ____    ____  _             _
+          #|  \/  |  / \|_   _| |      / \  | __ )  / ___|| |_ __ _ _ __| |_ _   _ _ __
+          #| |\/| | / _ \ | | | |     / _ \ |  _ \  \___ \| __/ _` | '__| __| | | | '_ \
+          #| |  | |/ ___ \| | | |___ / ___ \| |_) |  ___) | || (_| | |  | |_| |_| | |_) |
+          #|_|  |_/_/   \_\_| |_____/_/   \_\____/  |____/ \__\__,_|_|   \__|\__,_| .__/
+          #                                                                       |_|
+          #note: this script requires nvidia prime render offload drivers
+          echo "-Djogl.disable.openglarbcontext=1">java.opts && /usr/local/MATLAB/R2023b/bin/matlab && rm java.opts
+
+
+    - name: System | matlab | copy matlab.desktop icon
+      ansible.builtin.copy:
+        src: files/icon_matlab.png
+        dest: /usr/share/matlab/icon_matlab.png
+        owner: "root"
+        group: "root"
+        mode: '0644' # -rw-r--r--
+
+    - name: System | matlab | start script
+      ansible.builtin.blockinfile:
+        path: /usr/share/applications/matlab.desktop
+        create: true
+        owner: "root"
+        group: "root"
+        mode: '0644' # -rw-r--r--
+        marker: "# {mark} ANSIBLE MANAGED BLOCK | matlab_postinstall.yml"
+        block: |
+          [Desktop Entry]
+          Name=matlab-amdgpu-wayland
+          Exec=/usr/share/matlab/matlab_startup.sh
+          Type=Application
+          Icon=/usr/share/matlab/icon_matlab.png
+          Terminal=true
