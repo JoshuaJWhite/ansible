@@ -1,6 +1,6 @@
-- name: System | auto-lock added to autostart
+- name: System | auto-lock after auto-login - wayland
   ansible.builtin.blockinfile:
-    path: /home/{{ user.standard }}/.config/autostart/autolock.desktop
+    path: /home/{{ user.standard }}/.config/autostart/autolock-wayland.desktop
     create: true
     owner: "{{ user.standard }}"
     group: "{{ user.standard }}"
@@ -9,8 +9,25 @@
     block: |
       [Desktop Entry]
       Type=Application
-      Name=autolock
+      Name=autolock-wayland
       Exec=/usr/bin/loginctl lock-session
+      Comment=Auto-lock after auto-login occurs.
+      Categories=Utility;
+      Terminal=false
+
+- name: System | auto-lock after auto-login - xorg
+  ansible.builtin.blockinfile:
+    path: /home/{{ user.standard }}/.config/autostart/autolock-xorg.desktop
+    create: true
+    owner: "{{ user.standard }}"
+    group: "{{ user.standard }}"
+    mode: '0644' # -rw-r--r--
+    marker: "# {mark} ANSIBLE MANAGED BLOCK | role=workstation"
+    block: |
+      [Desktop Entry]
+      Type=Application
+      Name=autolock-xorg
+      Exec=xdg-screensaver lock
       Comment=Auto-lock after auto-login occurs.
       Categories=Utility;
       Terminal=false
