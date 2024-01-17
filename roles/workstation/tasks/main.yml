@@ -5,9 +5,9 @@
 # |_|  \___/|_|\___(_)   \_/\_/ \___/|_|  |_|\_\___/\__\__,_|\__|_|\___/|_| |_|
 # main.yml in roles for workstation machines
 
-- name: Role workstation | import package_gemuguestagent.yml
+- name: Role workstation | import package_qemuguestagent.yml
   ansible.builtin.import_tasks:
-    file: packages_gemuquestagent.yml
+    file: packages_qemuguestagent.yml
 
 - name: Role workstation | import package_flatpak.yml
   ansible.builtin.import_tasks:
