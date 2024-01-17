@@ -1,0 +1,11 @@
+- name: Packages | install | nvidia | driver
+  ansible.builtin.apt:
+    name:
+      - nvidia-driver
+    state: "present"
+
+- name: Packages | install | nvidia | start enable persistence service
+  ansible.builtin.systemd_service:
+    name: "nvidia-persistenced.service"
+    state: "started"
+    enabled: true
