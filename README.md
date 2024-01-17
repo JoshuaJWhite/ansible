@@ -63,3 +63,7 @@ For Dell PowerEdge 13th Gen units this is located at:
 System BIOS > Processor Settings > Virtualization Technology > "Enabled"
 System BIOS > Integrated Devices > SR-IOV Global Enable > "Enable"
 
+# Config: VM with q35 bios and pcie passthrough
+Secure boot needs to be turned off in the q35 bios.
+Hit "esc" during boot > "Device Manager" > "Secure Boot Configuration" > "Attempt Secure Boot [ ]".
+Otherwise the pcie device will passthrough but the guest os will not be able to obtain the "Kernel driver in use:" lspci -k item
