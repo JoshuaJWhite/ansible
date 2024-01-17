@@ -24,23 +24,23 @@
     mode: '0755' # drwxr-xr-x
   changed_when: false # otherwise always changed
 
-- name: Packages | install | sunshine | copy included .desktop to autostart
-  ansible.builtin.copy:
-    src: /usr/share/applications/sunshine.desktop
-    dest: /home/{{ user.standard }}/.config/autostart/sunshine.desktop
-    owner: "{{ user.standard }}"
-    group: "{{ user.standard }}"
-    mode: '0644' # -rw-r--r--
-    force: false
-  when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
+#- name: Packages | install | sunshine | copy included .desktop to autostart
+#  ansible.builtin.copy:
+#    src: /usr/share/applications/sunshine.desktop
+#    dest: /home/{{ user.standard }}/.config/autostart/sunshine.desktop
+#    owner: "{{ user.standard }}"
+#    group: "{{ user.standard }}"
+#    mode: '0644' # -rw-r--r--
+#    force: false
+#  when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
 
-- name: Packages | install | sunshine | turn off terminal for autostart
-  ansible.builtin.lineinfile:
-    path: /home/{{ user.standard }}/.config/autostart/sunshine.desktop
-    regexp: '^Terminal=.*'
-    line: 'Terminal=false'
-    create: false
-  when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
+#- name: Packages | install | sunshine | turn off terminal for autostart
+#  ansible.builtin.lineinfile:
+#    path: /home/{{ user.standard }}/.config/autostart/sunshine.desktop
+#    regexp: '^Terminal=.*'
+#    line: 'Terminal=false'
+#    create: false
+#  when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
 
 - name: Packages | install | sunshine | no cursor workaround
   ansible.builtin.lineinfile:
@@ -51,4 +51,45 @@
     owner: "root"
     group: "root"
     mode: '0644' # -rw-r--r--
+  when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
+
+- name: Packages | install | sunshine | create .config/systemd/user directory
+  ansible.builtin.file:
+    path: /home/{{ user.standard }}/.config/systemd/user/
+    state: "directory"
+    owner: "{{ user.standard }}"
+    group: "{{ user.standard }}"
+    mode: '0755' # drwxr-xr-x
+  when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
+
+- name: Packages | install | sunshine | create systemd service
+  ansible.builtin.blockinfile:
+    path: /home/{{ user.standard }}/.config/systemd/user/sunshine.service
+    create: true
+    owner: "{{ user.standard }}"
+    group: "{{ user.standard }}"
+    mode: '0744' # -rwxr--r--
+    marker: "# {mark} ANSIBLE MANAGED BLOCK | role=workstation"
+    block: |
+      [Unit]
+      Description=Sunshine self-hosted game stream host for Moonlight.
+      StartLimitIntervalSec=500
+      StartLimitBurst=5
+
+      [Service]
+      ExecStart=/usr/bin/sunshine
+      Restart=on-failure
+      RestartSec=5s
+
+      [Install]
+      WantedBy=graphical-session.target
+  when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
+
+- name: Packages | install | sunshine | systemd service start enable
+  ansible.builtin.systemd_service:
+    name: sunshine.service
+    state: "started"
+    enabled: true
+    scope: "user"
+  become_user: "{{ user.standard }}"
   when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
