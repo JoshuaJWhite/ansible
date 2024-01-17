@@ -33,13 +33,13 @@
     create: false
   when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
 
-- name: Packages | install | sunshine | no cursor workaround
-  ansible.builtin.lineinfile:
-    path: /etc/environment
-    regexp: '^MUTTER_DEBUG_DISABLE_HW_CURSORS=.*'
-    line: 'MUTTER_DEBUG_DISABLE_HW_CURSORS=1'
-    create: true
-    owner: "root"
-    group: "root"
-    mode: '0644' # -rw-r--r--
-  when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
+#- name: Packages | install | sunshine | no cursor workaround
+#  ansible.builtin.lineinfile:
+#    path: /etc/environment
+#    regexp: '^MUTTER_DEBUG_DISABLE_HW_CURSORS=.*'
+#    line: 'MUTTER_DEBUG_DISABLE_HW_CURSORS=1'
+#    create: true
+#    owner: "root"
+#    group: "root"
+#    mode: '0644' # -rw-r--r--
+#  when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
