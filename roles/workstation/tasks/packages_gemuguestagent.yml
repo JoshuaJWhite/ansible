@@ -1,0 +1,5 @@
+- name: Package | install | qemu vm guest agent
+  ansible.builtin.apt:
+    name:
+      - qemu-guest-agent
+    state: "present"
