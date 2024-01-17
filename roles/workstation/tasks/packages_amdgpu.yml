@@ -1,0 +1,5 @@
+- name: Packages | install | amd gpu firmware
+  ansible.builtin.apt:
+    name:
+      - firmware-amd-graphics
+    state: "present"
