@@ -15,6 +15,15 @@
   changed_when: false
   when: ansible_facts['pkg_mgr'] == 'apt'
 
+- name: Packages| install | sunshine | create ~/.config/autostart/
+  ansible.builtin.file:
+    path: /home/{{ user.standard }}/.config/autostart/
+    state: "directory"
+    owner: "{{ user.standard }}"
+    group: "{{ user.standard }}"
+    mode: '0644' # drw-r--r--
+  changed_when: false # otherwise always changed
+
 - name: Packages | install | sunshine | copy included .desktop to autostart
   ansible.builtin.copy:
     src: /usr/share/applications/sunshine.desktop
