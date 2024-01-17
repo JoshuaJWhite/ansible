@@ -21,7 +21,7 @@
     state: "directory"
     owner: "{{ user.standard }}"
     group: "{{ user.standard }}"
-    mode: '0744' # drwxr--r--
+    mode: '0755' # drwxr-xr-x
   changed_when: false # otherwise always changed
 
 - name: Packages | install | sunshine | copy included .desktop to autostart
