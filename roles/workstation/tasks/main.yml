@@ -9,9 +9,9 @@
   ansible.builtin.import_tasks:
     file: packages_qemuguestagent.yml
 
-- name: Role workstation | import package_nvidia.yml
-  ansible.builtin.import_tasks:
-    file: packages_nvidia.yml
+#- name: Role workstation | import package_nvidia.yml
+#  ansible.builtin.import_tasks:
+#    file: packages_nvidia.yml
 
 - name: Role workstation | import package_flatpak.yml
   ansible.builtin.import_tasks:

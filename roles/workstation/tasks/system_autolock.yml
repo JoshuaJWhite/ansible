@@ -15,19 +15,19 @@
       Categories=Utility;
       Terminal=false
 
-- name: System | auto-lock after auto-login - xorg
-  ansible.builtin.blockinfile:
-    path: /home/{{ user.standard }}/.config/autostart/autolock-xorg.desktop
-    create: true
-    owner: "{{ user.standard }}"
-    group: "{{ user.standard }}"
-    mode: '0644' # -rw-r--r--
-    marker: "# {mark} ANSIBLE MANAGED BLOCK | role=workstation"
-    block: |
-      [Desktop Entry]
-      Type=Application
-      Name=autolock-xorg
-      Exec=xdg-screensaver lock
-      Comment=Auto-lock after auto-login occurs.
-      Categories=Utility;
-      Terminal=false
+#- name: System | auto-lock after auto-login - xorg
+#  ansible.builtin.blockinfile:
+#    path: /home/{{ user.standard }}/.config/autostart/autolock-xorg.desktop
+#    create: true
+#    owner: "{{ user.standard }}"
+#    group: "{{ user.standard }}"
+#    mode: '0644' # -rw-r--r--
+#    marker: "# {mark} ANSIBLE MANAGED BLOCK | role=workstation"
+#    block: |
+#      [Desktop Entry]
+#      Type=Application
+#      Name=autolock-xorg
+#      Exec=xdg-screensaver lock
+#      Comment=Auto-lock after auto-login occurs.
+#      Categories=Utility;
+#      Terminal=false
