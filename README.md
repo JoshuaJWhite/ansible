@@ -68,7 +68,7 @@ Secure boot needs to be turned off in the q35 bios.
 Hit "esc" during boot > "Device Manager" > "Secure Boot Configuration" > "Attempt Secure Boot [ ]".
 Otherwise the pcie device will passthrough but the guest os will not be able to obtain the "Kernel driver in use:" lspci -k item
 
-# Workstation:
+# Matlab:
 Install Matlab manually from the "matlab\_R2023b\_glnxa64.zip" by ./install
 OpenGL hardware rendering will not work:
 matlab> opengl info
