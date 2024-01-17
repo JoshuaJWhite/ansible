@@ -1,0 +1,38 @@
+- name: System | passthrough | device IDs
+  ansible.builtin.lineinfile:
+    dest: /etc/modprobe.d/vfio.conf
+    line: "options vfio-pci ids={{ pcivendordeviceid.lsisas3008 }},{{ pcivendordeviceid.amdw6600 }},{{ pcivendordeviceid.gtxtitanxp }} disable_vga=1"
+    create: true
+    owner: root
+    group: root
+    mode: '0644' # -rw-r--r--
+    state: "present"
+  register: vfio_conf
+
+- name: System | iommu | update initramfs
+  ansible.builtin.command:
+    cmd: update-initramfs -u -k all
+  when: vfio_conf.changed
+
+- name: System | passthrough | driver blacklist
+  ansible.builtin.lineinfile:
+    dest: /etc/modprobe.d/blacklist.conf
+    line: "blacklist {{ item }}"
+    create: true
+    owner: root
+    group: root
+    mode: '0644' # -rw-r--r--
+    state: "present"
+  loop:
+    - mpt3sas
+    - amdgpu
+    - nouveau
+    - nvidia
+    - nvidiafb
+    - snd_hda_intel
+  register: blacklist_conf
+
+- name: System | iommu | update initramfs
+  ansible.builtin.command:
+    cmd: update-initramfs -u -k all
+  when: blacklist_conf.changed
