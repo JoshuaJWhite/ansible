@@ -1,0 +1,12 @@
+- name: Packages | install | cli tools
+  ansible.builtin.apt:
+    name:
+      - git
+      - htop
+      - iotop # simple top-like I/O monitor
+      - iperf3 # Internet Protocol bandwidth measuring tool
+      - stress # tool to impose load on and stress test a computer system
+      - tree
+      - vim
+      - vifm # flexible vi-like file manager using ncurses
+    state: present

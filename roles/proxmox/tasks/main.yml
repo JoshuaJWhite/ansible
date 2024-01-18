@@ -14,6 +14,18 @@
   ansible.builtin.import_tasks:
     file: system_ssh.yml
 
+- name: Role proxmox | import packages_cli.yml
+  ansible.builtin.import_tasks:
+    file: packages_cli.yml
+
+- name: Role proxmox | import system_bashrc.yml
+  ansible.builtin.import_tasks:
+    file: system_bashrc.yml
+
+- name: Role proxmox | import system_vimrc.yml
+  ansible.builtin.import_tasks:
+    file: system_vimrc.yml
+
 - name: Role proxmox | import system_iommu.yml
   ansible.builtin.import_tasks:
     file: system_iommu.yml

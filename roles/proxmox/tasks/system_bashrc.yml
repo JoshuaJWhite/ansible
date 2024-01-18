@@ -1,0 +1,13 @@
+- name: System | bashrc
+  ansible.builtin.blockinfile:
+    path: /root/.bashrc
+    create: true
+    owner: "root"
+    group: "root"
+    mode: '0644' # -rw-r--r--
+    insertafter: "EOF"
+    block: |
+      # user aliases
+      alias ll='ls -laFh'
+      alias l='ls -CF'
+    marker: "# {mark} ANSIBLE MANAGED BLOCK | proxmox"
