@@ -8,6 +8,7 @@
       - org.chromium.Chromium # Chromium Web Browser - The web browser from Chromium project
       - org.gimp.GIMP # GIMP - Create images and edit photographs
       - org.inkscape.Inkscape # Inkscape - Vector Graphics Editor
+      - org.kde.okular # Okular - Document Viewer
       - org.libreoffice.LibreOffice # LibreOffice - The LibreOffice productivity suite
       - org.mozilla.firefox # Firefox - Fast, Private & Safe Web Browser
       - org.qbittorrent.qBittorrent # qBittorrent - An open-source Bittorrent client
