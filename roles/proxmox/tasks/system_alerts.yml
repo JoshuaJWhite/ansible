@@ -1,0 +1,72 @@
+- name: System | alerts | install packages
+  ansible.builtin.apt:
+    name:
+      - libsasl2-modules
+      - mailutils
+      - postfix-pcre
+    state: "present"
+
+- name: System | alerts | configure postfix
+  ansible.builtin.lineinfile:
+    path: /etc/postfix/sasl_passwd
+    line: smtp.gmail.com {{ logalert.email }}:{{ logalert.password }}
+    state: "present"
+    create: true
+    owner: "root"
+    group: "root"
+    mode: '600' # -rw-------
+  register: postfix_db
+
+- name: System | alerts | postfix file hash
+  ansible.builtin.command: postmap hash:/etc/postfix/sasl_passwd
+  when: postfix_db.changed
+
+- name: System | alerts | smtp header config
+  ansible.builtin.lineinfile:
+    path: /etc/postfix/smtp_header_checks
+    line: '/^From:.*/ REPLACE From: pve-alert <pve-alert@something.com>'
+    state: "present"
+    create: true
+    owner: "root"
+    group: "root"
+    mode: '0644' # -rw-r--r--
+  register: postfix_smtp
+
+- name: System | alerts | postfix smtp file hash
+  ansible.builtin.command: postmap hash:/etc/postfix/smtp_header_checks
+  when: postfix_smtp.changed
+
+- name: System | alerts | configre postfix main | comment out default config
+  ansible.builtin.lineinfile:
+    path: /etc/postfix/main.cf
+    regexp: '^relayhost =$'
+    line: '#relayhost ='
+    state: "present"
+    create: false
+    firstmatch: true
+
+- name: System | alerts | configure postfix main | add managed block
+  ansible.builtin.blockinfile:
+    path: /etc/postfix/main.cf
+    create: false
+    marker: "# {mark} ANSIBLE MANAGED BLOCK | role=proxmox"
+    block: |
+      # google mail configuration
+      relayhost = smtp.gmail.com:587
+      smtp_use_tls = yes
+      smtp_sasl_auth_enable = yes
+      smtp_sasl_security_options =
+      smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+      smtp_tls_CAfile = /etc/ssl/certs/Entrust_Root_Certification_Authority.pem
+      smtp_tls_session_cache_database = btree:/var/lib/postfix/smtp_tls_session_cache
+      smtp_tls_session_cache_timeout = 3600s
+      smtp_header_checks = pcre:/etc/postfix/smtp_header_checks
+  register: postfix_main
+
+- name: System | alerts | restart postfix
+  ansible.builtin.command: postfix reload
+  when: postfix_main.changed
+
+- name: System | alerts | test email
+  ansible.builtin.shell: echo "This is a test message sent from postfix on Proxmox Server by ansible-playbook" | mail -s "Test Email from Proxmox" {{ logalert.email }}
+  when: postfix_main.changed

@@ -34,6 +34,10 @@
   ansible.builtin.import_tasks:
     file: system_passthrough.yml
 
+- name: Role proxmox | import system_alerts.yml
+  ansible.builtin.import_tasks:
+    file: system_alerts.yml
+
 # this task hangs the playbook... not sure why yet
 # ref: https://johnscs.com/remove-proxmox51-subscription-notice/
 # - name: Role proxmox | import system_pvenag.yml
