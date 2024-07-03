@@ -3,6 +3,7 @@
     name:
       - curl
       - figlet # for making text banners of ASCII characters
+      - fio # flexible I/O tester
       - git
       - gnuplot
       - htop
