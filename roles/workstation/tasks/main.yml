@@ -13,7 +13,7 @@
   ansible.builtin.import_tasks:
     file: packages_amdgpu.yml
 
-#- name: Role workstation | import package_nvidia.yml
+# - name: Role workstation | import package_nvidia.yml
 #  ansible.builtin.import_tasks:
 #    file: packages_nvidia.yml
 

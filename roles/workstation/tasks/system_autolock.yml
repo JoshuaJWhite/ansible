@@ -15,7 +15,7 @@
       Categories=Utility;
       Terminal=false
 
-#- name: System | auto-lock after auto-login - xorg
+# - name: System | auto-lock after auto-login - xorg
 #  ansible.builtin.blockinfile:
 #    path: /home/{{ user.standard }}/.config/autostart/autolock-xorg.desktop
 #    create: true

@@ -26,15 +26,6 @@
     conn_name: "Wired connection 1"
     state: "absent"
 
-- name: System | static network eth100gbe_p1
-  community.general.nmcli:
-    conn_name: eth100gbe_p1
-    state: "absent"
-- name: System | static network eth100gbe_p2
-  community.general.nmcli:
-    conn_name: eth100gbe_p2
-    state: "absent"
-
 - name: System | static network eth10gbe
   community.general.nmcli:
     conn_name: eth10gbe

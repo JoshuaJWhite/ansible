@@ -24,7 +24,7 @@
     mode: '0755' # drwxr-xr-x
   changed_when: false # otherwise always changed
 
-#- name: Packages | install | sunshine | copy included .desktop to autostart
+# - name: Packages | install | sunshine | copy included .desktop to autostart
 #  ansible.builtin.copy:
 #    src: /usr/share/applications/sunshine.desktop
 #    dest: /home/{{ user.standard }}/.config/autostart/sunshine.desktop
@@ -34,7 +34,7 @@
 #    force: false
 #  when: check_sunshine_deb_installed.rc == 0 # rc=0 <- installed
 
-#- name: Packages | install | sunshine | turn off terminal for autostart
+# - name: Packages | install | sunshine | turn off terminal for autostart
 #  ansible.builtin.lineinfile:
 #    path: /home/{{ user.standard }}/.config/autostart/sunshine.desktop
 #    regexp: '^Terminal=.*'
