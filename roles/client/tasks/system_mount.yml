@@ -4,19 +4,19 @@
       - nfs-common # NFS support files common to client and server
     state: present
 
-- name: System | mount | create mount location(s)
-  ansible.builtin.file:
-    path: /home/{{ user.standard }}/shares/{{ item }}
-    state: "directory"
-    owner: "{{ user.standard }}"
-    group: "{{ user.standard }}"
-    mode: '0760' # drw-rw----
-  loop:
-    - "onedrive"
-    - "media"
-    - "scratch"
-    - "iphone"
-  changed_when: false # otherwise always changed
+#- name: System | mount | create mount location(s)
+#  ansible.builtin.file:
+#    path: /home/{{ user.standard }}/shares/{{ item }}
+#    state: "directory"
+#    owner: "{{ user.standard }}"
+#    group: "{{ user.standard }}"
+#    mode: '0760' # drw-rw----
+#  loop:
+#    - "onedrive"
+#    - "media"
+#    - "scratch"
+#    - "iphone"
+#  changed_when: false # otherwise always changed
 
 - name: System | mount | fstab nas nfs share onedrive
   ansible.posix.mount:
