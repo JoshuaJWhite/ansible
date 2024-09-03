@@ -13,8 +13,8 @@
 
     - name: System | matlab | backing up old lib c++ link included with matlab
       ansible.builtin.file:
-        src: /usr/local/MATLAB/R2023b/sys/os/glnxa64/libstdc++.so.6.0.28
-        dest: /usr/local/MATLAB/R2023b/sys/os/glnxa64/libstdc++.so.6.backup
+        src: /usr/local/MATLAB/R2024a/sys/os/glnxa64/libstdc++.so.6.0.28
+        dest: /usr/local/MATLAB/R2024a/sys/os/glnxa64/libstdc++.so.6.backup
         state: link
         owner: "root"
         group: "root"
@@ -23,7 +23,7 @@
     - name: System | matlab | link lib c++ to system lib
       ansible.builtin.file:
         src: /usr/lib/x86_64-linux-gnu/libstdc++.so.6
-        dest: /usr/local/MATLAB/R2023b/sys/os/glnxa64/libstdc++.so.6
+        dest: /usr/local/MATLAB/R2024a/sys/os/glnxa64/libstdc++.so.6
         state: link
         owner: "root"
         group: "root"
@@ -68,7 +68,7 @@
           #|_|  |_/_/   \_\_| |_____/_/   \_\____/  |____/ \__\__,_|_|   \__|\__,_| .__/
           #                                                                       |_|
           #note: this script requires nvidia prime render offload drivers
-          echo "-Djogl.disable.openglarbcontext=1">java.opts && /usr/local/MATLAB/R2023b/bin/matlab && rm java.opts
+          echo "-Djogl.disable.openglarbcontext=1">java.opts && /usr/local/MATLAB/R2024a/bin/matlab && rm java.opts
 
 
     - name: System | matlab | copy matlab.desktop icon
@@ -89,7 +89,7 @@
         marker: "# {mark} ANSIBLE MANAGED BLOCK | matlab_postinstall.yml"
         block: |
           [Desktop Entry]
-          Name=matlab-amdgpu-wayland
+          Name=matlab-wayland-amd-intel-gpu
           Exec=/usr/share/matlab/matlab_startup.sh
           Type=Application
           Icon=/usr/share/matlab/icon_matlab.png
