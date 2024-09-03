@@ -5,13 +5,21 @@
 # |_|  \___/|_|\___(_)  \___|_|_|\___|_| |_|\__|
 # main.yml for roles for client machines
 
+- name: Role client | import system_network.yml
+  ansible.builtin.import_tasks:
+    file: system_network.yml
+
+- name: Role workstation | import packages_apt.yml
+  ansible.builtin.import_tasks:
+    file: packages_apt.yml
+
 - name: Role client | import packages_flatpak.yml
   ansible.builtin.import_tasks:
     file: packages_flatpak.yml
 
-- name: Role client | import system_network.yml
+- name: Role workstation | import packages_vscode.yml
   ansible.builtin.import_tasks:
-    file: system_network.yml
+    file: packages_vscode.yml
 
 - name: Role client | import system_mount.yml
   ansible.builtin.import_tasks:
