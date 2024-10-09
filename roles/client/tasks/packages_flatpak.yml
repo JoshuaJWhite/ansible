@@ -11,6 +11,7 @@
       - org.kde.okular # Okular - Document Viewer
       - org.libreoffice.LibreOffice # LibreOffice - The LibreOffice productivity suite
       - org.mozilla.firefox # Firefox - Fast, Private & Safe Web Browser
+      - org.nickvision.tagger # Tagger - Tag your music
       - org.qbittorrent.qBittorrent # qBittorrent - An open-source Bittorrent client
       - se.cendio.tlclient # ThinLinc Client - The Linux remote desktop server built on open source technology
       - tv.plex.PlexDesktop # Plex - Plex client for desktop computers
